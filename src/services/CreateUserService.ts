@@ -9,7 +9,7 @@ interface IRequest {
 	name: string;
 	email: string;
 	password: string;
-	avatar_url?: string;
+	avatar?: string;
 }
 
 type IResponse = User;
@@ -25,13 +25,13 @@ class CreateUserService {
 		name,
 		email,
 		password,
-		avatar_url,
+		avatar,
 	}: IRequest): Promise<IResponse> {
 		const user = this.repository.create({
 			name,
 			email,
 			password,
-			avatar_url: avatar_url || '',
+			avatar: avatar || '',
 		});
 
 		await this.repository.save(user);
