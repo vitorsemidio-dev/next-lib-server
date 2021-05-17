@@ -5,12 +5,14 @@
 	"author": "Vitor Emidio <vitorsemidio.96@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+		"dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+		"typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
 	},
 	"dependencies": {
 		"dotenv": "^9.0.2",
 		"express": "^4.17.1",
 		"pg": "^8.6.0",
+		"reflect-metadata": "^0.1.13",
 		"typeorm": "^0.2.32"
 	},
 	"devDependencies": {
