@@ -5,6 +5,8 @@ import { getCustomRepository } from 'typeorm';
 import User from '../database/entities/User';
 import UsersRepository from '../repositories/UsersRepository';
 
+import HashProvider from '../utils/HashProvider';
+
 interface IRequest {
 	name: string;
 	email: string;
@@ -27,10 +29,11 @@ class CreateUserService {
 		password,
 		avatar,
 	}: IRequest): Promise<IResponse> {
+		const passwordHashed = await HashProvider.generateHash(password);
 		const user = this.repository.create({
 			name,
 			email,
-			password,
+			password: passwordHashed,
 			avatar: avatar || '',
 		});
 
