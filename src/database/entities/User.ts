@@ -8,10 +8,12 @@ import {
 	UpdateDateColumn,
 } from 'typeorm';
 
+import { v4 as uuid } from 'uuid';
+
 @Entity('users')
 class User {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id: string = uuid();
 
 	@Column()
 	name: string;
@@ -23,13 +25,13 @@ class User {
 	password: string;
 
 	@Column()
-	avatar_url: string;
+	avatar: string;
 
 	@CreateDateColumn()
-	created_at: Date;
+	created_at: Date = new Date();
 
 	@UpdateDateColumn()
-	updated_at: Date;
+	updated_at: Date = new Date();
 }
 
 export default User;

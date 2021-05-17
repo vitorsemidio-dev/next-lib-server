@@ -28,16 +28,19 @@ export class CreateUsers1621267909336 implements MigrationInterface {
 						type: 'varchar',
 					},
 					{
-						name: 'avatar_url',
+						name: 'avatar',
 						type: 'varchar',
+						isNullable: true,
 					},
 					{
 						name: 'created_at',
 						type: 'timestamp',
+						default: 'now()',
 					},
 					{
 						name: 'updated_at',
 						type: 'timestamp',
+						default: 'now()',
 					},
 				],
 			}),
