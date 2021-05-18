@@ -18,6 +18,6 @@ const upload = multer({
 
 usersRouter.get('/', usersController.list);
 
-usersRouter.post('/', upload.single('avatar'), usersController.create);
+usersRouter.post('/', upload.single('image'), usersController.create);
 
 export default usersRouter;

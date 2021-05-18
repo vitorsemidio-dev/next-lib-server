@@ -12,7 +12,7 @@ let booksRepository: BooksRepository;
 let createBookService: CreateBookService;
 
 export default class BooksController {
-	public async index(requet: Request, response: Response): Promise<Response> {
+	public async list(requet: Request, response: Response): Promise<Response> {
 		booksRepository = getCustomRepository(BooksRepository);
 
 		const books = await booksRepository.find();

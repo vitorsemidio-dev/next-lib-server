@@ -14,6 +14,6 @@ const upload = multer({
 
 const librariesController = new LibrariesController();
 
-librariesRouter.post('/', upload.single('avatar'), librariesController.create);
+librariesRouter.post('/', upload.single('image'), librariesController.create);
 
 export default librariesRouter;

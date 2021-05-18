@@ -14,8 +14,8 @@ const upload = multer({
 
 const booksController = new BooksController();
 
-booksRouter.get('/', booksController.index);
+booksRouter.get('/', booksController.list);
 
-booksRouter.post('/', upload.single('avatar'), booksController.create);
+booksRouter.post('/', upload.single('image'), booksController.create);
 
 export default booksRouter;
