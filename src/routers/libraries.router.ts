@@ -1,19 +1,18 @@
 /** @format */
 
 import { Router } from 'express';
-import multer from 'multer';
-import uploadConfig from '../config/upload';
 
 import LibrariesController from '../controllers/LibrariesController';
+import imageUpload from '../middlewares/imageUpload';
 
 const librariesRouter = Router();
-const upload = multer({
-	dest: uploadConfig.destination,
-	storage: uploadConfig.storage,
-});
 
 const librariesController = new LibrariesController();
 
-librariesRouter.post('/', upload.single('image'), librariesController.create);
+librariesRouter.post(
+	'/',
+	imageUpload.single('image'),
+	librariesController.create,
+);
 
 export default librariesRouter;
