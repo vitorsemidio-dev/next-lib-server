@@ -15,4 +15,6 @@ librariesRouter.post(
 	librariesController.create,
 );
 
+librariesRouter.get('/', librariesController.list);
+
 export default librariesRouter;
