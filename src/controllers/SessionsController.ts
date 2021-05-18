@@ -1,6 +1,7 @@
 /** @format */
 
 import { Request, Response } from 'express';
+import AppError from '../errors/AppError';
 
 import AuthService from '../services/AuthService';
 
@@ -23,8 +24,9 @@ export default class SessionsController {
 				token,
 			});
 		} catch (error) {
-			return response.status(400).send({
-				errorMessage: error.message,
+			const { statusCode, message } = error as AppError;
+			return response.status(statusCode).send({
+				error: message,
 			});
 		}
 	}

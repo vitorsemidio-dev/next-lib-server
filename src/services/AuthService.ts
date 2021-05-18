@@ -4,6 +4,7 @@ import { getCustomRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 
 import User from '../database/entities/User';
+import AppError from '../errors/AppError';
 import env from '../environment/env.js';
 
 import UsersRepository from '../repositories/UsersRepository';
@@ -29,14 +30,15 @@ export default class AuthService {
 	public async execute({ email, password }: IRequest): Promise<IResponse> {
 		const user = await this.repository.findByEmail(email);
 
-		if (!user) throw new Error('Email and password does not match');
+		if (!user) throw new AppError('Email and password does not match', 401);
 
 		const isPasswordValid = await HashProvider.compareHash(
 			password,
 			user.password,
 		);
 
-		if (!isPasswordValid) throw new Error('Email and password does not match');
+		if (!isPasswordValid)
+			throw new AppError('Email and password does not match', 401);
 
 		const token = sign({}, env.jwtSecret, {
 			expiresIn: env.jwtExpiresIn,

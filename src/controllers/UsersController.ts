@@ -5,26 +5,34 @@ import { getCustomRepository } from 'typeorm';
 
 import CreateUserService from '../services/CreateUserService';
 import UsersRepository from '../repositories/UsersRepository';
+import AppError from '../errors/AppError';
 
 let createUserService: CreateUserService;
 let usersRepository: UsersRepository;
 
 class UsersController {
 	public async create(request: Request, response: Response): Promise<Response> {
-		const { name, email, password } = request.body;
-		const { file } = request;
-		const avatar = file.filename;
+		try {
+			const { name, email, password } = request.body;
+			const { file } = request;
+			const avatar = file.filename;
 
-		createUserService = new CreateUserService();
+			createUserService = new CreateUserService();
 
-		const user = await createUserService.execute({
-			name,
-			email,
-			password,
-			avatar,
-		});
+			const user = await createUserService.execute({
+				name,
+				email,
+				password,
+				avatar,
+			});
 
-		return response.json(user);
+			return response.json(user);
+		} catch (error) {
+			const { message, statusCode } = error as AppError;
+			return response.status(statusCode).json({
+				error: message,
+			});
+		}
 	}
 
 	public async list(request: Request, response: Response): Promise<Response> {

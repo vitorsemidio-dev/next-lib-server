@@ -3,6 +3,7 @@
 import { getCustomRepository } from 'typeorm';
 
 import User from '../database/entities/User';
+import AppError from '../errors/AppError';
 import UsersRepository from '../repositories/UsersRepository';
 
 import HashProvider from '../utils/HashProvider';
@@ -29,7 +30,14 @@ class CreateUserService {
 		password,
 		avatar,
 	}: IRequest): Promise<IResponse> {
+		const userCheck = await this.repository.findOne({
+			where: { email },
+		});
+
+		if (userCheck) throw new AppError('Email is already used', 400);
+
 		const passwordHashed = await HashProvider.generateHash(password);
+
 		const user = this.repository.create({
 			name,
 			email,
