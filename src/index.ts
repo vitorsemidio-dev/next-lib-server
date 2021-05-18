@@ -2,10 +2,10 @@
 
 import 'express-async-errors';
 import 'reflect-metadata';
-
 import './database';
 import express, { Request, Response, NextFunction } from 'express';
 
+import AppError from './errors/AppError';
 import uploadConfig from './config/upload';
 import routers from './routers';
 
@@ -15,13 +15,22 @@ app.use(routers);
 
 app.use('/files', express.static(uploadConfig.destination));
 
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-	console.error(err);
+app.use(
+	(error: Error, request: Request, response: Response, _: NextFunction) => {
+		console.error(error);
 
-	return response.status(500).json({
-		status: 'error',
-		message: 'Internal server error',
-	});
-});
+		if (error instanceof AppError) {
+			const { message, statusCode } = error;
+			return response.status(statusCode).json({
+				error: message,
+			});
+		}
+
+		return response.status(500).json({
+			status: 'error',
+			message: 'Internal server error',
+		});
+	},
+);
 
 export default app;

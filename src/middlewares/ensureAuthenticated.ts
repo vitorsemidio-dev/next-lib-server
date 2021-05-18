@@ -17,21 +17,21 @@ export default function ensureAuthenticated(
 	response: Response,
 	next: NextFunction,
 ) {
+	const authHeader = request.headers.authorization;
+
+	if (!authHeader) throw new AppError('JWT token is missing', 401);
+
+	const [, token] = authHeader.split(' ');
+
 	try {
-		const authHeader = request.headers.authorization;
-
-		if (!authHeader) throw new AppError('JWT token is missing', 401);
-
-		const [, token] = authHeader.split(' ');
-
 		const { sub } = verify(token, env.jwtSecret) as TokenPayload;
 
 		request.user = {
 			id: sub,
 		};
-
-		return next();
 	} catch (error) {
 		throw new AppError('Invalid JWT token', 401);
 	}
+
+	return next();
 }
