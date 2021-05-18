@@ -13,12 +13,15 @@ export default class SessionsController {
 
 			authService = new AuthService();
 
-			const isValidCredentials = await authService.execute({
+			const { user, token } = await authService.execute({
 				email,
 				password,
 			});
 
-			return response.json(isValidCredentials);
+			return response.json({
+				user,
+				token,
+			});
 		} catch (error) {
 			return response.status(400).send({
 				errorMessage: error.message,

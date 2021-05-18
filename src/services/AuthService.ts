@@ -1,6 +1,10 @@
 /** @format */
 
 import { getCustomRepository } from 'typeorm';
+import { sign } from 'jsonwebtoken';
+
+import User from '../database/entities/User';
+import env from '../environment/env.js';
 
 import UsersRepository from '../repositories/UsersRepository';
 import HashProvider from '../utils/HashProvider';
@@ -10,6 +14,11 @@ interface IRequest {
 	password: string;
 }
 
+interface IResponse {
+	user: User;
+	token: string;
+}
+
 export default class AuthService {
 	private repository: UsersRepository;
 
@@ -17,7 +26,7 @@ export default class AuthService {
 		this.repository = getCustomRepository(UsersRepository);
 	}
 
-	public async execute({ email, password }: IRequest): Promise<boolean> {
+	public async execute({ email, password }: IRequest): Promise<IResponse> {
 		const user = await this.repository.findByEmail(email);
 
 		if (!user) throw new Error('Email and password does not match');
@@ -29,6 +38,14 @@ export default class AuthService {
 
 		if (!isPasswordValid) throw new Error('Email and password does not match');
 
-		return true;
+		const token = sign({}, env.jwtSecret, {
+			expiresIn: env.jwtExpiresIn,
+			subject: user.id,
+		});
+
+		return {
+			user,
+			token,
+		};
 	}
 }
