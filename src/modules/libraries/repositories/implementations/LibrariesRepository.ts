@@ -40,6 +40,12 @@ class LibrariesRepository implements ILibrariesRepository {
 
 		return libraries;
 	}
+
+	public async findById(id: string) {
+		const library = await this.ormRepository.findOne(id);
+
+		return library;
+	}
 }
 
 export default LibrariesRepository;

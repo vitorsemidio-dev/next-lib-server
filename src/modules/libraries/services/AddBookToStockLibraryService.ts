@@ -7,7 +7,7 @@ import AppError from '@shared/errors/AppError';
 
 import BooksRepository from '../repositories/implementations/BooksRepository';
 import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
-import StockRepository from '../repositories/StockLibraryRepository';
+import StockRepository from '../repositories/implementations/StockLibraryRepository';
 
 interface IRequest {
 	library_id: string;
@@ -31,7 +31,7 @@ export default class AddBookToStockLibraryService {
 		book_id,
 		quantity,
 	}: IRequest): Promise<StockLibrary> {
-		let library = await this.librariesRepository.findOne(library_id);
+		let library = await this.librariesRepository.findById(library_id);
 
 		if (!library) throw new AppError('Library does not exists', 400);
 
@@ -39,13 +39,11 @@ export default class AddBookToStockLibraryService {
 
 		if (!book) throw new AppError('Book does not exists', 400);
 
-		const stockItem = this.stockRepository.create({
+		const stockItem = await this.stockRepository.create({
 			book,
 			library,
 			quantity,
 		});
-
-		await this.stockRepository.save(stockItem);
 
 		return stockItem;
 	}

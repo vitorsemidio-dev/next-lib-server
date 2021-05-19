@@ -8,4 +8,5 @@ export default interface ILibrariesRepository {
 	find(): Promise<Library[]>;
 	findByEmail(email: string): Promise<Library | undefined>;
 	findBySlug(slug: string): Promise<Library | undefined>;
+	findById(id: string): Promise<Library | undefined>;
 }
