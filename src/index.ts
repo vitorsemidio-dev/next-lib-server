@@ -2,12 +2,13 @@
 
 import 'express-async-errors';
 import 'reflect-metadata';
-import './database';
+import './shared/database';
+import './shared/container';
 import express, { Request, Response, NextFunction } from 'express';
 
-import AppError from './errors/AppError';
-import uploadConfig from './config/upload';
-import routers from './routers';
+import AppError from './shared/errors/AppError';
+import uploadConfig from './shared/config/upload';
+import routers from './shared/routers';
 
 const app = express();
 app.use(express.json());
