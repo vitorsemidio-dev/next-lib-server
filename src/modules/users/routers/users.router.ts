@@ -3,7 +3,7 @@
 import { Router } from 'express';
 
 import UsersController from '../controllers/UsersController';
-import imageUpload from '../middlewares/imageUpload';
+import imageUpload from '../../../shared/middlewares/imageUpload';
 
 const usersController = new UsersController();
 

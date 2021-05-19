@@ -2,11 +2,11 @@
 
 import { getCustomRepository } from 'typeorm';
 
-import User from '../database/entities/User';
-import AppError from '../errors/AppError';
+import User from '../../../shared/database/entities/User';
+import AppError from '../../../shared/errors/AppError';
 import UsersRepository from '../repositories/UsersRepository';
 
-import HashProvider from '../utils/HashProvider';
+import HashProvider from '../../../utils/HashProvider';
 
 interface IRequest {
 	name: string;

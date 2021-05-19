@@ -5,7 +5,7 @@ import { Router } from 'express';
 import LibrariesController from '../controllers/LibrariesController';
 import SessionsLibraryController from '../controllers/SessionsLibraryController';
 import StockLibraryController from '../controllers/StockLibraryController';
-import imageUpload from '../middlewares/imageUpload';
+import imageUpload from '../../../shared/middlewares/imageUpload';
 
 const librariesRouter = Router();
 
