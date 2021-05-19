@@ -7,11 +7,10 @@ import {
 	UpdateDateColumn,
 	CreateDateColumn,
 	OneToMany,
-	JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import Book from './Book';
+import StockLibrary from './StockLibrary';
 
 @Entity('libraries')
 class Library {
@@ -33,11 +32,10 @@ class Library {
 	@Column()
 	avatar: string;
 
-	@OneToMany(() => Book, (book) => book.library, {
+	@OneToMany(() => StockLibrary, (stockLibrary) => stockLibrary.library, {
 		eager: true,
 	})
-	@JoinColumn({ name: 'library_id' })
-	books: Book;
+	stockLibrary!: StockLibrary[];
 
 	@CreateDateColumn()
 	created_at: Date = new Date();

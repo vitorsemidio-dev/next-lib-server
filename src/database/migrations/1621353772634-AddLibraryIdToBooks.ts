@@ -24,7 +24,7 @@ export class AddLibraryIdToBooks1621353772634 implements MigrationInterface {
 				name: 'BookLibrary',
 				columnNames: ['library_id'],
 				referencedColumnNames: ['id'],
-				referencedTableName: 'books',
+				referencedTableName: 'libraries',
 				onUpdate: 'CASCADE',
 				onDelete: 'SET NULL',
 			}),

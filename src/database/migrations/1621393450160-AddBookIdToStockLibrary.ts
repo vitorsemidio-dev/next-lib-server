@@ -7,10 +7,12 @@ import {
 	TableForeignKey,
 } from 'typeorm';
 
-export class AddBookIdToLibraries1621348952713 implements MigrationInterface {
+export class AddBookIdToStockLibrary1621393450160
+	implements MigrationInterface
+{
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.addColumn(
-			'libraries',
+			'stock_library',
 			new TableColumn({
 				name: 'book_id',
 				type: 'varchar',
@@ -19,20 +21,20 @@ export class AddBookIdToLibraries1621348952713 implements MigrationInterface {
 		);
 
 		await queryRunner.createForeignKey(
-			'libraries',
+			'stock_library',
 			new TableForeignKey({
-				name: 'LibraryBook',
+				name: 'StockLibrary_Book',
 				columnNames: ['book_id'],
 				referencedColumnNames: ['id'],
 				referencedTableName: 'books',
-				onDelete: 'SET NULL',
 				onUpdate: 'CASCADE',
+				onDelete: 'SET NULL',
 			}),
 		);
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
-		await queryRunner.dropForeignKey('libraries', 'LibraryBook');
-		await queryRunner.dropColumn('libraries', 'book_id');
+		await queryRunner.dropForeignKey('stock_library', 'StockLibrary_Book');
+		await queryRunner.dropColumn('stock_library', 'book_id');
 	}
 }

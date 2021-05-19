@@ -6,12 +6,11 @@ import {
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
-	ManyToOne,
-	JoinColumn,
+	OneToMany,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import Library from './Library';
+import StockLibrary from './StockLibrary';
 
 @Entity('books')
 class Book {
@@ -33,9 +32,8 @@ class Book {
 	@Column()
 	picture: string;
 
-	@ManyToOne(() => Library, (library) => library.books)
-	@JoinColumn({ name: 'library_id' })
-	library: Library;
+	@OneToMany(() => StockLibrary, (stockLibrary) => stockLibrary.book)
+	public stockLibrary!: StockLibrary[];
 
 	@CreateDateColumn()
 	created_at: Date = new Date();
