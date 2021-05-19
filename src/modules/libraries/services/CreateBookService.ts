@@ -4,7 +4,7 @@ import { getCustomRepository } from 'typeorm';
 
 import slugfy from '@utils/slugfy';
 import Book from '@shared/database/entities/Book';
-import BooksRepository from '../repositories/BooksRepository';
+import BooksRepository from '../repositories/implementations/BooksRepository';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -33,15 +33,13 @@ export default class CreateBookService {
 		if (checkBook)
 			throw new AppError(`The book ${name} is already registered`, 400);
 
-		const book = this.repository.create({
+		const book = await this.repository.create({
 			name,
 			slug,
 			author,
 			pages,
 			picture,
 		});
-
-		await this.repository.save(book);
 
 		return book;
 	}

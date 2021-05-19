@@ -5,7 +5,7 @@ import { getCustomRepository } from 'typeorm';
 import StockLibrary from '@shared/database/entities/StockLibrary';
 import AppError from '@shared/errors/AppError';
 
-import BooksRepository from '../repositories/BooksRepository';
+import BooksRepository from '../repositories/implementations/BooksRepository';
 import LibrariesRepository from '../repositories/LibrariesRepository';
 import StockRepository from '../repositories/StockLibraryRepository';
 
@@ -35,7 +35,7 @@ export default class AddBookToStockLibraryService {
 
 		if (!library) throw new AppError('Library does not exists', 400);
 
-		let book = await this.booksRepository.findOne(book_id);
+		let book = await this.booksRepository.findById(book_id);
 
 		if (!book) throw new AppError('Book does not exists', 400);
 

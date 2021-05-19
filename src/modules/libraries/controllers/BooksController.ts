@@ -2,18 +2,15 @@
 
 import { Request, Response } from 'express';
 
-import { getCustomRepository } from 'typeorm';
-
 import CreateBookService from '../services/CreateBookService';
 
-import BooksRepository from '../repositories/BooksRepository';
+import BooksRepository from '../repositories/implementations/BooksRepository';
 
-let booksRepository: BooksRepository;
 let createBookService: CreateBookService;
 
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
-		booksRepository = getCustomRepository(BooksRepository);
+		const booksRepository = new BooksRepository();
 
 		const books = await booksRepository.find();
 
