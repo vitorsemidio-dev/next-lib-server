@@ -3,6 +3,7 @@
 import 'express-async-errors';
 import 'reflect-metadata';
 import './shared/database';
+import './shared/container';
 import express, { Request, Response, NextFunction } from 'express';
 
 import AppError from './shared/errors/AppError';

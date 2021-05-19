@@ -1,6 +1,7 @@
 /** @format */
 
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import CreateUserService from '../services/CreateUserService';
 import UsersRepository from '../repositories/implementations/UsersRepository';
@@ -11,8 +12,7 @@ class UsersController {
 		const { file } = request;
 		const avatar = file.filename;
 
-		const usersRepository = new UsersRepository();
-		const createUserService = new CreateUserService(usersRepository);
+		const createUserService = container.resolve(CreateUserService);
 
 		const user = await createUserService.execute({
 			name,

@@ -1,5 +1,7 @@
 /** @format */
 
+import { inject, injectable } from 'tsyringe';
+
 import User from '@shared/database/entities/User';
 import AppError from '@shared/errors/AppError';
 import HashProvider from '@utils/HashProvider';
@@ -15,8 +17,12 @@ interface IRequest {
 
 type IResponse = User;
 
+@injectable()
 class CreateUserService {
-	constructor(private usersRepository: IUsersRepository) {}
+	constructor(
+		@inject('UsersRepository')
+		private usersRepository: IUsersRepository,
+	) {}
 
 	public async execute({
 		name,
