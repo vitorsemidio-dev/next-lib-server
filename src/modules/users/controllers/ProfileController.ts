@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 
-import UsersRepository from '../repositories/implementations/UsersRepository';
+import UsersRepository from '../repositories/UsersRepository';
 
 let usersRepository: UsersRepository;
 

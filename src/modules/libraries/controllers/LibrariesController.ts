@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateLibraryService from '../services/CreateLibraryService';
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {

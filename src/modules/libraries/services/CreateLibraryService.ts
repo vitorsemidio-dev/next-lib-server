@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import slugfy from '@utils/slugfy';
 import HashProvider from '@utils/HashProvider';
 
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
 import Library from '@shared/database/entities/Library';
 import AppError from '@shared/errors/AppError';
 

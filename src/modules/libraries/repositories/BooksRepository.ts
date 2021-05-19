@@ -4,7 +4,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import Book from '@shared/database/entities/Book';
 
-import IBooksRepository from '../interfaces/IBooksRepository';
+import IBooksRepository from './interfaces/IBooksRepository';
 import ICreateBookDTO from '@modules/libraries/dtos/ICreateBookDTO';
 
 class BooksRepository implements IBooksRepository {

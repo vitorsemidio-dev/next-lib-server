@@ -3,9 +3,9 @@
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 
-import BooksRepository from '../repositories/implementations/BooksRepository';
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
-import StockLibraryRepository from '../repositories/implementations/StockLibraryRepository';
+import BooksRepository from '../repositories/BooksRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
+import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 import AddBookToStockLibraryService from '../services/AddBookToStockLibraryService';
 

@@ -3,7 +3,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';
-import IStockLibraryRepository from '../interfaces/IStockLibraryRepository';
+import IStockLibraryRepository from './interfaces/IStockLibraryRepository';
 import IAddBookToStockLibraryDTO from '@modules/libraries/dtos/IAddBookToStockLibraryDTO';
 
 export default class StockLibraryRepository implements IStockLibraryRepository {

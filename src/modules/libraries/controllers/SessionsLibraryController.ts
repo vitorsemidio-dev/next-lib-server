@@ -6,7 +6,7 @@ import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
 import LibraryAuthenticateService from '../services/LibraryAuthenticateService';
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
 
 export default class SessionsLibraryController {
 	public async create(request: Request, response: Response): Promise<Response> {

@@ -4,7 +4,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import User from '@shared/database/entities/User';
 
-import IUsersRepository from '../interfaces/IUsersRepository';
+import IUsersRepository from './interfaces/IUsersRepository';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 class UsersRepository implements IUsersRepository {
