@@ -7,7 +7,7 @@ import User from '@shared/database/entities/User';
 import AppError from '@shared/errors/AppError';
 import env from '@shared/environment/env.js';
 
-import UsersRepository from '../repositories/UsersRepository';
+import UsersRepository from '../repositories/implementations/UsersRepository';
 import HashProvider from '@utils/HashProvider';
 
 interface IRequest {

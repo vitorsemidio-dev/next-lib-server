@@ -4,8 +4,8 @@ import { getRepository, Repository } from 'typeorm';
 
 import User from '@shared/database/entities/User';
 
-import IUsersRepository from './IUsersRepository';
-import ICreateUserDTO from './ICreateUserDTO';
+import IUsersRepository from '../interfaces/IUsersRepository';
+import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 class UsersRepository implements IUsersRepository {
 	private ormRepository: Repository<User>;
@@ -37,6 +37,18 @@ class UsersRepository implements IUsersRepository {
 		});
 
 		await this.ormRepository.save(user);
+
+		return user;
+	}
+
+	public async find(): Promise<User[]> {
+		const users = await this.ormRepository.find();
+
+		return users;
+	}
+
+	public async findById(id: string): Promise<User | undefined> {
+		const user = await this.ormRepository.findOne(id);
 
 		return user;
 	}

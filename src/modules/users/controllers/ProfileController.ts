@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 
-import UsersRepository from '../repositories/UsersRepository';
+import UsersRepository from '../repositories/implementations/UsersRepository';
 
 let usersRepository: UsersRepository;
 
@@ -14,7 +14,7 @@ export default class ProfileController {
 
 		usersRepository = getCustomRepository(UsersRepository);
 
-		const user = await usersRepository.findOne(id);
+		const user = await usersRepository.findById(id);
 
 		if (!user) throw new AppError('User does not found', 404);
 

@@ -1,13 +1,9 @@
 /** @format */
 
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
 import CreateUserService from '../services/CreateUserService';
-import UsersRepository from '../repositories/UsersRepository';
-
-let createUserService: CreateUserService;
-let usersRepository: UsersRepository;
+import UsersRepository from '../repositories/implementations/UsersRepository';
 
 class UsersController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -15,7 +11,8 @@ class UsersController {
 		const { file } = request;
 		const avatar = file.filename;
 
-		createUserService = new CreateUserService();
+		const usersRepository = new UsersRepository();
+		const createUserService = new CreateUserService(usersRepository);
 
 		const user = await createUserService.execute({
 			name,
@@ -28,7 +25,7 @@ class UsersController {
 	}
 
 	public async list(request: Request, response: Response): Promise<Response> {
-		usersRepository = getCustomRepository(UsersRepository);
+		const usersRepository = new UsersRepository();
 
 		const users = await usersRepository.find();
 

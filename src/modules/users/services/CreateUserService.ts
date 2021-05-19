@@ -1,12 +1,10 @@
 /** @format */
 
-import { getCustomRepository } from 'typeorm';
-
 import User from '@shared/database/entities/User';
 import AppError from '@shared/errors/AppError';
-import UsersRepository from '../repositories/UsersRepository';
-
 import HashProvider from '@utils/HashProvider';
+
+import IUsersRepository from '../repositories/interfaces/IUsersRepository';
 
 interface IRequest {
 	name: string;
@@ -18,11 +16,7 @@ interface IRequest {
 type IResponse = User;
 
 class CreateUserService {
-	private repository: UsersRepository;
-
-	constructor() {
-		this.repository = getCustomRepository(UsersRepository);
-	}
+	constructor(private usersRepository: IUsersRepository) {}
 
 	public async execute({
 		name,
@@ -30,13 +24,13 @@ class CreateUserService {
 		password,
 		avatar,
 	}: IRequest): Promise<IResponse> {
-		const userCheck = await this.repository.findByEmail(email);
+		const userCheck = await this.usersRepository.findByEmail(email);
 
 		if (userCheck) throw new AppError('Email is already used', 400);
 
 		const passwordHashed = await HashProvider.generateHash(password);
 
-		const user = await this.repository.create({
+		const user = await this.usersRepository.create({
 			name,
 			email,
 			password: passwordHashed,
