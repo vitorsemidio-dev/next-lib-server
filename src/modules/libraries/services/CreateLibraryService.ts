@@ -2,12 +2,12 @@
 
 import { getCustomRepository } from 'typeorm';
 
-import slugfy from '../../../utils/slugfy';
-import HashProvider from '../../../utils/HashProvider';
+import slugfy from '@utils/slugfy';
+import HashProvider from '@utils/HashProvider';
 
 import LibrariesRepository from '../repositories/LibrariesRepository';
-import Library from '../../../shared/database/entities/Library';
-import AppError from '../../../shared/errors/AppError';
+import Library from '@shared/database/entities/Library';
+import AppError from '@shared/errors/AppError';
 
 interface IRequest {
 	name: string;

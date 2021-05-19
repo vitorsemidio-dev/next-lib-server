@@ -2,8 +2,8 @@
 
 import { getCustomRepository } from 'typeorm';
 
-import StockLibrary from '../../../shared/database/entities/StockLibrary';
-import AppError from '../../../shared/errors/AppError';
+import StockLibrary from '@shared/database/entities/StockLibrary';
+import AppError from '@shared/errors/AppError';
 
 import BooksRepository from '../repositories/BooksRepository';
 import LibrariesRepository from '../repositories/LibrariesRepository';

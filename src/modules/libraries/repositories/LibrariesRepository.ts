@@ -2,7 +2,7 @@
 
 import { Repository, EntityRepository } from 'typeorm';
 
-import Library from '../../../shared/database/entities/Library';
+import Library from '@shared/database/entities/Library';
 
 @EntityRepository(Library)
 class LibrariesRepository extends Repository<Library> {

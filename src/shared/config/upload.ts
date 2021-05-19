@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import multer from 'multer';
 import path from 'path';
 
-const destination = path.resolve(__dirname, '..', '..', 'tmp', 'uploads');
+const destination = path.resolve(__dirname, '..', '..', '..', 'tmp', 'uploads');
 
 export default {
 	destination,

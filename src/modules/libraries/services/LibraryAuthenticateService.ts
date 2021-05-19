@@ -3,12 +3,12 @@
 import { getCustomRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 
-import Library from '../../../shared/database/entities/Library';
-import AppError from '../../../shared/errors/AppError';
-import env from '../../../shared/environment/env.js';
+import Library from '@shared/database/entities/Library';
+import AppError from '@shared/errors/AppError';
+import env from '@shared/environment/env.js';
 
 import LibrariesRepository from '../repositories/LibrariesRepository';
-import HashProvider from '../../../utils/HashProvider';
+import HashProvider from '@utils/HashProvider';
 
 interface IRequest {
 	email: string;

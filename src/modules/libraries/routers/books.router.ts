@@ -3,7 +3,7 @@
 import { Router } from 'express';
 
 import BooksController from '../controllers/BooksController';
-import imageUpload from '../../../shared/middlewares/imageUpload';
+import imageUpload from '@shared/middlewares/imageUpload';
 
 const booksRouter = Router();
 
