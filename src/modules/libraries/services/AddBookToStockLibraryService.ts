@@ -6,7 +6,7 @@ import StockLibrary from '@shared/database/entities/StockLibrary';
 import AppError from '@shared/errors/AppError';
 
 import BooksRepository from '../repositories/implementations/BooksRepository';
-import LibrariesRepository from '../repositories/LibrariesRepository';
+import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
 import StockRepository from '../repositories/StockLibraryRepository';
 
 interface IRequest {

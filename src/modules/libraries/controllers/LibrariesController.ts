@@ -1,13 +1,11 @@
 /** @format */
 
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
 import CreateLibraryService from '../services/CreateLibraryService';
-import LibrariesRepository from '../repositories/LibrariesRepository';
+import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
 
 let createLibraryService: CreateLibraryService;
-let librariesRepository: LibrariesRepository;
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -27,7 +25,7 @@ export default class LibrariesController {
 	}
 
 	public async list(request: Request, response: Response): Promise<Response> {
-		librariesRepository = getCustomRepository(LibrariesRepository);
+		const librariesRepository = new LibrariesRepository();
 
 		const libraries = await librariesRepository.find();
 
