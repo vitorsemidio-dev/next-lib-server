@@ -1,6 +1,6 @@
 /** @format */
 
-import { getCustomRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
 import slugfy from '@utils/slugfy';
 import Book from '@shared/database/entities/Book';
@@ -14,12 +14,12 @@ interface IRequest {
 	picture: string;
 }
 
+@injectable()
 export default class CreateBookService {
-	private repository: BooksRepository;
-
-	constructor() {
-		this.repository = getCustomRepository(BooksRepository);
-	}
+	constructor(
+		@inject('BooksRepository')
+		private repository: BooksRepository,
+	) {}
 	public async execute({
 		name,
 		author,

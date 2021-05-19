@@ -1,7 +1,7 @@
 /** @format */
 
-import { getCustomRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
+import { inject, injectable } from 'tsyringe';
 
 import Library from '@shared/database/entities/Library';
 import AppError from '@shared/errors/AppError';
@@ -20,12 +20,12 @@ interface IResponse {
 	token: string;
 }
 
+@injectable()
 export default class LibraryAuthenticateService {
-	private repository: LibrariesRepository;
-
-	constructor() {
-		this.repository = getCustomRepository(LibrariesRepository);
-	}
+	constructor(
+		@inject('LibrariesRepository')
+		private repository: LibrariesRepository,
+	) {}
 
 	public async execute({ email, password }: IRequest): Promise<IResponse> {
 		const library = await this.repository.findByEmail(email);

@@ -1,6 +1,6 @@
 /** @format */
 
-import { getCustomRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';
 import AppError from '@shared/errors/AppError';
@@ -15,16 +15,16 @@ interface IRequest {
 	quantity: number;
 }
 
+@injectable()
 export default class AddBookToStockLibraryService {
-	private booksRepository: BooksRepository;
-	private librariesRepository: LibrariesRepository;
-	private stockRepository: StockRepository;
-
-	constructor() {
-		this.booksRepository = getCustomRepository(BooksRepository);
-		this.librariesRepository = getCustomRepository(LibrariesRepository);
-		this.stockRepository = getCustomRepository(StockRepository);
-	}
+	constructor(
+		@inject('BooksRepository')
+		private booksRepository: BooksRepository,
+		@inject('LibrariesRepository')
+		private librariesRepository: LibrariesRepository,
+		@inject('StockRepository')
+		private stockRepository: StockRepository,
+	) {}
 
 	public async execute({
 		library_id,

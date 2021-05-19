@@ -1,6 +1,6 @@
 /** @format */
 
-import { getCustomRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
 import slugfy from '@utils/slugfy';
 import HashProvider from '@utils/HashProvider';
@@ -16,12 +16,12 @@ interface IRequest {
 	avatar: string;
 }
 
+@injectable()
 export default class CreateLibraryService {
-	private repository: LibrariesRepository;
-
-	constructor() {
-		this.repository = getCustomRepository(LibrariesRepository);
-	}
+	constructor(
+		@inject('LibrariesRepository')
+		private repository: LibrariesRepository,
+	) {}
 
 	public async execute({
 		name,

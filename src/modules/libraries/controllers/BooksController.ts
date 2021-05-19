@@ -1,16 +1,15 @@
 /** @format */
 
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import CreateBookService from '../services/CreateBookService';
 
 import BooksRepository from '../repositories/implementations/BooksRepository';
 
-let createBookService: CreateBookService;
-
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
-		const booksRepository = new BooksRepository();
+		const booksRepository = container.resolve(BooksRepository);
 
 		const books = await booksRepository.find();
 
@@ -20,7 +19,9 @@ export default class BooksController {
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name, author, pages } = request.body;
 		const { filename: picture } = request.file;
-		createBookService = new CreateBookService();
+
+		const booksRepository = container.resolve(BooksRepository);
+		const createBookService = new CreateBookService(booksRepository);
 
 		const book = await createBookService.execute({
 			name,
