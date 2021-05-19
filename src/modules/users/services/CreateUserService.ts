@@ -30,22 +30,18 @@ class CreateUserService {
 		password,
 		avatar,
 	}: IRequest): Promise<IResponse> {
-		const userCheck = await this.repository.findOne({
-			where: { email },
-		});
+		const userCheck = await this.repository.findByEmail(email);
 
 		if (userCheck) throw new AppError('Email is already used', 400);
 
 		const passwordHashed = await HashProvider.generateHash(password);
 
-		const user = this.repository.create({
+		const user = await this.repository.create({
 			name,
 			email,
 			password: passwordHashed,
-			avatar: avatar || '',
+			avatar,
 		});
-
-		await this.repository.save(user);
 
 		return user;
 	}
