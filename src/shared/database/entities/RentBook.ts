@@ -7,6 +7,7 @@ import {
 	UpdateDateColumn,
 	JoinColumn,
 	ManyToOne,
+	Column,
 } from 'typeorm';
 
 import { v4 as uuid } from 'uuid';
@@ -21,7 +22,15 @@ class RentBook {
 	@PrimaryGeneratedColumn('uuid')
 	id: string = uuid();
 
-	@ManyToOne(() => User, (user) => user.bookRented)
+	@Column()
+	user_id: string;
+
+	@Column()
+	stock_library_id: string;
+
+	@ManyToOne(() => User, (user) => user.bookRented, {
+		eager: true,
+	})
 	@JoinColumn({
 		name: 'user_id',
 	})
@@ -33,7 +42,9 @@ class RentBook {
 	})
 	book: Book;
 
-	@ManyToOne(() => StockLibrary, (stockLibrary) => stockLibrary.library)
+	@ManyToOne(() => StockLibrary, (stockLibrary) => stockLibrary.library, {
+		eager: true,
+	})
 	@JoinColumn({
 		name: 'stock_library_id',
 	})
