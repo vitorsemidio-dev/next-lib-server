@@ -29,7 +29,7 @@ class RentBook {
 	stock_library_id: string;
 
 	@ManyToOne(() => User, (user) => user.bookRented, {
-		eager: true,
+		eager: false,
 	})
 	@JoinColumn({
 		name: 'user_id',

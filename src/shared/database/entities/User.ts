@@ -30,7 +30,7 @@ class User {
 	avatar: string;
 
 	@OneToMany(() => RentBook, (bookRented) => bookRented.user)
-	bookRented: RentBook;
+	bookRented: RentBook[];
 
 	@CreateDateColumn()
 	created_at: Date = new Date();

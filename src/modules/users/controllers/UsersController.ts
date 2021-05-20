@@ -31,6 +31,15 @@ class UsersController {
 
 		return response.json(users);
 	}
+
+	public async detail(request: Request, response: Response): Promise<Response> {
+		const { user_id } = request.body;
+		const usersRepository = new UsersRepository();
+
+		const user = await usersRepository.userDetail(user_id);
+
+		return response.json(user);
+	}
 }
 
 export default UsersController;

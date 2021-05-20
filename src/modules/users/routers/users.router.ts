@@ -11,6 +11,8 @@ const usersRouter = Router();
 
 usersRouter.get('/', usersController.list);
 
+usersRouter.get('/:user_id', usersController.detail);
+
 usersRouter.post('/', imageUpload.single('image'), usersController.create);
 
 export default usersRouter;
