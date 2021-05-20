@@ -26,4 +26,10 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 
 		return stock;
 	}
+
+	public async findById(id: string): Promise<StockLibrary | undefined> {
+		const stockItem = await this.ormRepository.findOne(id);
+
+		return stockItem;
+	}
 }
