@@ -6,9 +6,11 @@ import {
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToMany,
 } from 'typeorm';
 
 import { v4 as uuid } from 'uuid';
+import RentBook from './RentBook';
 
 @Entity('users')
 class User {
@@ -26,6 +28,9 @@ class User {
 
 	@Column()
 	avatar: string;
+
+	@OneToMany(() => RentBook, (bookRented) => bookRented.user)
+	bookRented: RentBook;
 
 	@CreateDateColumn()
 	created_at: Date = new Date();
