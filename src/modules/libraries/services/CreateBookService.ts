@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe';
 
 import slugfy from '@utils/slugfy';
 import Book from '@shared/database/entities/Book';
-import BooksRepository from '../repositories/implementations/BooksRepository';
+import BooksRepository from '../repositories/BooksRepository';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {

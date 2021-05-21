@@ -7,7 +7,7 @@ import Library from '@shared/database/entities/Library';
 import AppError from '@shared/errors/AppError';
 import env from '@shared/environment/env.js';
 
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
 import HashProvider from '@utils/HashProvider';
 
 interface IRequest {

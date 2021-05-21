@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateUserService from '../services/CreateUserService';
-import UsersRepository from '../repositories/implementations/UsersRepository';
+import UsersRepository from '../repositories/UsersRepository';
 
 class UsersController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -30,6 +30,15 @@ class UsersController {
 		const users = await usersRepository.find();
 
 		return response.json(users);
+	}
+
+	public async detail(request: Request, response: Response): Promise<Response> {
+		const { user_id } = request.body;
+		const usersRepository = new UsersRepository();
+
+		const user = await usersRepository.userDetail(user_id);
+
+		return response.json(user);
 	}
 }
 

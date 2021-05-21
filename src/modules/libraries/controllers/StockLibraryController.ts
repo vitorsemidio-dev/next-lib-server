@@ -3,11 +3,12 @@
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 
-import BooksRepository from '../repositories/implementations/BooksRepository';
-import LibrariesRepository from '../repositories/implementations/LibrariesRepository';
-import StockLibraryRepository from '../repositories/implementations/StockLibraryRepository';
+import BooksRepository from '../repositories/BooksRepository';
+import LibrariesRepository from '../repositories/LibrariesRepository';
+import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 import AddBookToStockLibraryService from '../services/AddBookToStockLibraryService';
+import ListStockLibraryService from '../services/ListStockLibraryService';
 
 export default class StockLibraryController {
 	public async create(request: Request, response: Response) {
@@ -33,10 +34,21 @@ export default class StockLibraryController {
 	}
 
 	public async list(request: Request, response: Response) {
-		const stockLibraryRepository = new StockLibraryRepository();
+		const { library_id } = request.params;
 
-		const stockLibrary = await stockLibraryRepository.find();
+		const stockLibraryService = new ListStockLibraryService();
 
-		return response.json(stockLibrary);
+		const stockLibrary = await stockLibraryService.execute({
+			library_id,
+		});
+
+		const stockViewModel = stockLibrary.map((item) => {
+			return {
+				...item.book,
+				quantity: item.quantity,
+			};
+		});
+
+		return response.json(stockViewModel);
 	}
 }

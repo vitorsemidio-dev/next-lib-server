@@ -3,7 +3,7 @@
 import { Repository, getRepository } from 'typeorm';
 
 import Library from '@shared/database/entities/Library';
-import ILibrariesRepository from '../interfaces/ILibrariesRepository';
+import ILibrariesRepository from './interfaces/ILibrariesRepository';
 import ICreateLibraryDTO from '@modules/libraries/dtos/ICreateLibraryDTO';
 
 class LibrariesRepository implements ILibrariesRepository {

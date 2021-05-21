@@ -3,7 +3,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';
-import IStockLibraryRepository from '../interfaces/IStockLibraryRepository';
+import IStockLibraryRepository from './interfaces/IStockLibraryRepository';
 import IAddBookToStockLibraryDTO from '@modules/libraries/dtos/IAddBookToStockLibraryDTO';
 
 export default class StockLibraryRepository implements IStockLibraryRepository {
@@ -25,5 +25,22 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 		const stock = await this.ormRepository.find();
 
 		return stock;
+	}
+
+	public async findById(id: string): Promise<StockLibrary | undefined> {
+		const stockItem = await this.ormRepository.findOne(id);
+
+		return stockItem;
+	}
+
+	public async findStocksWithLibraryId(id: string): Promise<StockLibrary[]> {
+		const stocks = await this.ormRepository.find({
+			where: {
+				library_id: id,
+			},
+			relations: ['book'],
+		});
+
+		return stocks || [];
 	}
 }

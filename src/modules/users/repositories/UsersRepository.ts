@@ -4,7 +4,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import User from '@shared/database/entities/User';
 
-import IUsersRepository from '../interfaces/IUsersRepository';
+import IUsersRepository from './interfaces/IUsersRepository';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 class UsersRepository implements IUsersRepository {
@@ -49,6 +49,14 @@ class UsersRepository implements IUsersRepository {
 
 	public async findById(id: string): Promise<User | undefined> {
 		const user = await this.ormRepository.findOne(id);
+
+		return user;
+	}
+
+	public async userDetail(id: string): Promise<User | undefined> {
+		const user = await this.ormRepository.findOne(id, {
+			relations: ['bookRented'],
+		});
 
 		return user;
 	}

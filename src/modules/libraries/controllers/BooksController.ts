@@ -5,7 +5,7 @@ import { container } from 'tsyringe';
 
 import CreateBookService from '../services/CreateBookService';
 
-import BooksRepository from '../repositories/implementations/BooksRepository';
+import BooksRepository from '../repositories/BooksRepository';
 
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
