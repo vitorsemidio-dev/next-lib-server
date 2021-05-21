@@ -22,6 +22,9 @@ class StockLibrary {
 	@Column('int')
 	quantity: number;
 
+	@Column()
+	book_id: string;
+
 	@ManyToOne(() => Book, (book) => book.stockLibrary, {
 		eager: false,
 	})
@@ -29,6 +32,9 @@ class StockLibrary {
 		name: 'book_id',
 	})
 	book: Book;
+
+	@Column()
+	library_id: string;
 
 	@ManyToOne(() => Library, (library) => library.stockLibrary, {
 		eager: false,

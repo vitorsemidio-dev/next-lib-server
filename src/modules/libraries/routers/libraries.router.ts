@@ -24,7 +24,7 @@ librariesRouter.post(
 librariesRouter.get('/', librariesController.list);
 
 librariesRouter.post('/stock', stockLibraryController.create);
-librariesRouter.get('/stock', stockLibraryController.list);
+librariesRouter.get('/stock/:library_id', stockLibraryController.list);
 
 librariesRouter.post('/sessions', sessionsLibraryController.create);
 

@@ -32,4 +32,14 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 
 		return stockItem;
 	}
+
+	public async findStocksWithLibraryId(id: string): Promise<StockLibrary[]> {
+		const stocks = await this.ormRepository.find({
+			where: {
+				library_id: id,
+			},
+		});
+
+		return stocks || [];
+	}
 }

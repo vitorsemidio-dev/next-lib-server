@@ -8,6 +8,7 @@ import LibrariesRepository from '../repositories/LibrariesRepository';
 import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 import AddBookToStockLibraryService from '../services/AddBookToStockLibraryService';
+import ListStockLibraryService from '../services/ListStockLibraryService';
 
 export default class StockLibraryController {
 	public async create(request: Request, response: Response) {
@@ -33,9 +34,13 @@ export default class StockLibraryController {
 	}
 
 	public async list(request: Request, response: Response) {
-		const stockLibraryRepository = new StockLibraryRepository();
+		const { library_id } = request.params;
 
-		const stockLibrary = await stockLibraryRepository.find();
+		const stockLibraryService = new ListStockLibraryService();
+
+		const stockLibrary = await stockLibraryService.execute({
+			library_id,
+		});
 
 		return response.json(stockLibrary);
 	}

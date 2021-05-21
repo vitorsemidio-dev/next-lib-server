@@ -1,6 +1,6 @@
 /** @format */
 
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, In, Repository } from 'typeorm';
 
 import Book from '@shared/database/entities/Book';
 
@@ -36,6 +36,16 @@ class BooksRepository implements IBooksRepository {
 		const book = await this.ormRepository.findOne(id);
 
 		return book;
+	}
+
+	public async findBooksByIds(ids: string[]): Promise<Book[]> {
+		const books = await this.ormRepository.find({
+			where: {
+				id: In(ids),
+			},
+		});
+
+		return books || [];
 	}
 }
 
