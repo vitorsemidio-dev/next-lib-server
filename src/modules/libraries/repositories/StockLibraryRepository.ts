@@ -38,6 +38,7 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 			where: {
 				library_id: id,
 			},
+			relations: ['book'],
 		});
 
 		return stocks || [];

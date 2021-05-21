@@ -42,6 +42,13 @@ export default class StockLibraryController {
 			library_id,
 		});
 
-		return response.json(stockLibrary);
+		const stockViewModel = stockLibrary.map((item) => {
+			return {
+				...item.book,
+				quantity: item.quantity,
+			};
+		});
+
+		return response.json(stockViewModel);
 	}
 }
