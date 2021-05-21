@@ -33,7 +33,7 @@ class Library {
 	avatar: string;
 
 	@OneToMany(() => StockLibrary, (stockLibrary) => stockLibrary.library, {
-		eager: true,
+		eager: false,
 	})
 	stockLibrary!: StockLibrary[];
 

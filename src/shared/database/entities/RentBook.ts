@@ -43,7 +43,7 @@ class RentBook {
 	book: Book;
 
 	@ManyToOne(() => StockLibrary, (stockLibrary) => stockLibrary.library, {
-		eager: true,
+		eager: false,
 	})
 	@JoinColumn({
 		name: 'stock_library_id',
