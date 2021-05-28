@@ -42,10 +42,13 @@ export default class StockLibraryController {
 			library_id,
 		});
 
+		const hostUrl = 'http://localhost:3333';
+
 		const stockViewModel = stockLibrary.map((item) => {
 			return {
 				...item.book,
 				quantity: item.quantity,
+				imgUrl: `${hostUrl}/files/${item.book.picture}`,
 			};
 		});
 
