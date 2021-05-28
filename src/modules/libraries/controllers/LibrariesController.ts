@@ -29,6 +29,13 @@ export default class LibrariesController {
 
 		const libraries = await librariesRepository.find();
 
-		return response.json(libraries);
+		const hostUrl = 'http://localhost:3333';
+
+		const librariesViewModel = libraries.map((item) => ({
+			...item,
+			imgUrl: `${hostUrl}/files/${item.avatar}`,
+		}));
+
+		return response.json(librariesViewModel);
 	}
 }
