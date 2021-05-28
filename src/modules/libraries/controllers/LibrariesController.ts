@@ -48,6 +48,13 @@ export default class LibrariesController {
 			throw new AppError(`Biblioteca com slug "${slug}" não encontrada`, 404);
 		}
 
-		return library;
+		const hostUrl = 'http://localhost:3333';
+
+		const libraryViewModel = {
+			...library,
+			imgUrl: `${hostUrl}/files/${library.avatar}`,
+		};
+
+		return response.json(libraryViewModel);
 	}
 }
