@@ -29,14 +29,22 @@ librariesRouter.get('/stock/:library_id', stockLibraryController.list);
 
 librariesRouter.post('/sessions', sessionsLibraryController.create);
 
-librariesRouter.post('/rent', async (request, response) => {
-	const { user_id, stock_library_id } = request.body;
-	const rentBookService = new RentBookService();
+// librariesRouter.post('/rent', async (request, response) => {
+// 	const { user_id, stock_library_id } = request.body;
+// 	const rentBookService = new RentBookService();
 
-	const bookRented = await rentBookService.execute({
-		user_id,
-		stock_library_id,
-	});
+// 	const bookRented = await rentBookService.execute({
+// 		user_id,
+// 		stock_library_id,
+// 	});
+
+// 	return response.json(bookRented);
+// });
+
+librariesRouter.post('/rent', async (request, response) => {
+	const { user_id, library_id, book_id } = request.body;
+
+	const bookRented = { user_id, library_id, book_id };
 
 	return response.json(bookRented);
 });
