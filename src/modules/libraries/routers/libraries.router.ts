@@ -22,6 +22,7 @@ librariesRouter.post(
 );
 
 librariesRouter.get('/', librariesController.list);
+librariesRouter.get('/:slug', librariesController.show);
 
 librariesRouter.post('/stock', stockLibraryController.create);
 librariesRouter.get('/stock/:library_id', stockLibraryController.list);

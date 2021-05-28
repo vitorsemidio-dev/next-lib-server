@@ -1,8 +1,7 @@
-/** @format */
-
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
 import CreateLibraryService from '../services/CreateLibraryService';
 import LibrariesRepository from '../repositories/LibrariesRepository';
 
@@ -37,5 +36,18 @@ export default class LibrariesController {
 		}));
 
 		return response.json(librariesViewModel);
+	}
+
+	public async show(request: Request, response: Response) {
+		const { slug } = request.params;
+		const librariesRepository = container.resolve(LibrariesRepository);
+
+		const library = await librariesRepository.findBySlug(slug);
+
+		if (!library) {
+			throw new AppError(`Biblioteca com slug "${slug}" não encontrada`, 404);
+		}
+
+		return library;
 	}
 }
