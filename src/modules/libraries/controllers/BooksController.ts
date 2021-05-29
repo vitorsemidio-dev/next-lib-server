@@ -13,7 +13,14 @@ export default class BooksController {
 
 		const books = await booksRepository.find();
 
-		return response.json(books);
+		const hostUrl = 'http://localhost:3333';
+
+		const booksViewModel = books.map((item) => ({
+			...item,
+			imgUrl: `${hostUrl}/files/${item.picture}`,
+		}));
+
+		return response.json(booksViewModel);
 	}
 
 	public async create(request: Request, response: Response): Promise<Response> {
