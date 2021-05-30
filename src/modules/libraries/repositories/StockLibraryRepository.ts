@@ -41,6 +41,9 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 			relations: ['book'],
 		});
 
-		return stocks || [];
+		const stocksResult =
+			stocks && stocks.filter((item) => item.book && item.book_id);
+
+		return stocksResult || [];
 	}
 }
