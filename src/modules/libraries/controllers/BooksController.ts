@@ -54,4 +54,17 @@ export default class BooksController {
 
 		return response.json(book);
 	}
+
+	public async update(request: Request, response: Response) {
+		const { book_id } = request.params;
+		const bookEdited = request.body;
+
+		return response.json(bookEdited);
+	}
+
+	public async remove(request: Request, response: Response) {
+		const { book_id } = request.params;
+
+		return response.json(book_id);
+	}
 }
