@@ -23,6 +23,21 @@ export default class BooksController {
 		return response.json(booksViewModel);
 	}
 
+	public async show(request: Request, response: Response) {
+		const { slug } = request.params;
+
+		const booksRepository = container.resolve(BooksRepository);
+		const book = await booksRepository.findBySlug(slug);
+
+		const hostUrl = 'http://localhost:3333';
+		const bookViewModel = {
+			...book,
+			imgUrl: `${hostUrl}/files/${book?.picture}`,
+		};
+
+		return response.json(bookViewModel);
+	}
+
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name, author, pages } = request.body;
 		const { filename: picture } = request.file;

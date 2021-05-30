@@ -10,6 +10,7 @@ const booksRouter = Router();
 const booksController = new BooksController();
 
 booksRouter.get('/', booksController.list);
+booksRouter.get('/:slug', booksController.show);
 
 booksRouter.post('/', imageUpload.single('image'), booksController.create);
 
