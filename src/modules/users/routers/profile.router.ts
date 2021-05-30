@@ -1,5 +1,3 @@
-/** @format */
-
 import { Router } from 'express';
 
 import ProfileController from '../controllers/ProfileController';

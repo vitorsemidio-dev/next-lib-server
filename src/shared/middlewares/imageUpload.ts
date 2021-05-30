@@ -1,5 +1,3 @@
-/** @format */
-
 import multer from 'multer';
 
 import uploadConfig from '../config/upload';

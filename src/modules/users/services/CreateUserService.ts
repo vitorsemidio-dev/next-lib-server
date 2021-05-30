@@ -1,5 +1,3 @@
-/** @format */
-
 import { inject, injectable } from 'tsyringe';
 
 import User from '@shared/database/entities/User';

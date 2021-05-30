@@ -1,5 +1,3 @@
-/** @format */
-
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';

@@ -1,5 +1,3 @@
-/** @format */
-
 export default class AppError {
 	public readonly message: string;
 

@@ -1,5 +1,3 @@
-/** @format */
-
 import { getManager, getRepository } from 'typeorm';
 import { container } from 'tsyringe';
 

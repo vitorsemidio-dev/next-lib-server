@@ -1,4 +1,3 @@
-/** @format */
 import crypto from 'crypto';
 
 import multer from 'multer';

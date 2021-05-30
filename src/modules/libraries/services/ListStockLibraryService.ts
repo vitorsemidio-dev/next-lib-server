@@ -1,5 +1,3 @@
-/** @format */
-
 import {} from 'typeorm';
 import { container } from 'tsyringe';
 

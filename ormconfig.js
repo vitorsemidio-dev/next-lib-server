@@ -1,5 +1,3 @@
-/** @format */
-
 const env = require('./src/environment/env');
 
 module.exports = {

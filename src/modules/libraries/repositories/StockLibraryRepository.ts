@@ -1,5 +1,3 @@
-/** @format */
-
 import { getRepository, Repository } from 'typeorm';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';

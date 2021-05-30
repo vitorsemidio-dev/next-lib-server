@@ -1,5 +1,3 @@
-/** @format */
-
 export default interface ICreateBookDTO {
 	name: string;
 	slug: string;

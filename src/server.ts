@@ -1,5 +1,3 @@
-/** @format */
-
 import app from './index';
 
 const SERVER_PORT = 3333;

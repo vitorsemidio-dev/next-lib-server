@@ -1,5 +1,3 @@
-/** @format */
-
 import { inject, injectable } from 'tsyringe';
 
 import slugfy from '@utils/slugfy';

@@ -1,5 +1,3 @@
-/** @format */
-
 import ICreateLibraryDTO from '@modules/libraries/dtos/ICreateLibraryDTO';
 import Library from '@shared/database/entities/Library';
 

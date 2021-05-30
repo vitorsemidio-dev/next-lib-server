@@ -1,5 +1,3 @@
-/** @format */
-
 import { getRepository, Repository } from 'typeorm';
 
 import User from '@shared/database/entities/User';
