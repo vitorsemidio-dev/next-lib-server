@@ -1,5 +1,3 @@
-/** @format */
-
 import { hash, compare } from 'bcryptjs';
 
 export default class HashProvider {

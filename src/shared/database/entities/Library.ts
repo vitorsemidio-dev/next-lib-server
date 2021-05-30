@@ -1,5 +1,3 @@
-/** @format */
-
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -8,6 +6,7 @@ import {
 	CreateDateColumn,
 	OneToMany,
 } from 'typeorm';
+import { Exclude, Expose } from 'class-transformer';
 import { v4 as uuid } from 'uuid';
 
 import StockLibrary from './StockLibrary';
@@ -27,6 +26,7 @@ class Library {
 	email: string;
 
 	@Column()
+	@Exclude()
 	password: string;
 
 	@Column()
@@ -42,6 +42,11 @@ class Library {
 
 	@UpdateDateColumn()
 	updated_at: Date = new Date();
+
+	@Expose({ name: 'imgUrl' })
+	getImgUrl(): string | null {
+		return this.avatar ? `http://localhost:3333/files/${this.avatar}` : null;
+	}
 }
 
 export default Library;

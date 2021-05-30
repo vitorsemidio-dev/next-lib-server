@@ -1,5 +1,3 @@
-/** @format */
-
 import {
 	Entity,
 	Column,
@@ -8,6 +6,7 @@ import {
 	UpdateDateColumn,
 	OneToMany,
 } from 'typeorm';
+import { Expose } from 'class-transformer';
 import { v4 as uuid } from 'uuid';
 
 import StockLibrary from './StockLibrary';
@@ -40,6 +39,11 @@ class Book {
 
 	@UpdateDateColumn()
 	updated_at: Date = new Date();
+
+	@Expose({ name: 'imgUrl' })
+	getImgUrl(): string | null {
+		return this.picture ? `http://localhost:3333/files/${this.picture}` : null;
+	}
 }
 
 export default Book;

@@ -1,5 +1,3 @@
-/** @format */
-
 import IAddBookToStockLibraryDTO from '@modules/libraries/dtos/IAddBookToStockLibraryDTO';
 import StockLibrary from '@shared/database/entities/StockLibrary';
 

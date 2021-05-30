@@ -1,5 +1,3 @@
-/** @format */
-
 import User from '@shared/database/entities/User';
 import ICreateUserDTO from '../../dtos/ICreateUserDTO';
 

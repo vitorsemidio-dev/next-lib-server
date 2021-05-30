@@ -1,5 +1,3 @@
-/** @format */
-
 import faker from 'faker';
 
 import slugfy from '@utils/slugfy';

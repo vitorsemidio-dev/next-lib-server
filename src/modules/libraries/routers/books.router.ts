@@ -1,5 +1,3 @@
-/** @format */
-
 import { Router } from 'express';
 
 import BooksController from '../controllers/BooksController';

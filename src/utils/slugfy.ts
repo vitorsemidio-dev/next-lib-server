@@ -1,5 +1,3 @@
-/** @format */
-
 export default function (payload: string): string {
 	const slug = payload
 		.toString()

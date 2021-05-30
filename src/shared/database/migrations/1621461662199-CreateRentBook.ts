@@ -1,5 +1,3 @@
-/** @format */
-
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateRentBook1621461662199 implements MigrationInterface {

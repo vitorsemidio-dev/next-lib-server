@@ -1,5 +1,3 @@
-/** @format */
-
 import ICreateBookDTO from '@modules/libraries/dtos/ICreateBookDTO';
 import Book from '@shared/database/entities/Book';
 

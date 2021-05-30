@@ -1,5 +1,3 @@
-/** @format */
-
 module.exports = {
 	serverPort: process.env.SERVER_PORT || 3333,
 	typeormConnection: process.env.TYPEORM_CONNECTION || '',

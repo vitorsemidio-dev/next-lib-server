@@ -1,5 +1,3 @@
-/** @format */
-
 import Library from '@shared/database/entities/Library';
 import Book from '@shared/database/entities/Book';
 

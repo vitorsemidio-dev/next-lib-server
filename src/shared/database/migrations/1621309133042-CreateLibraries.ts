@@ -1,5 +1,3 @@
-/** @format */
-
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateLibraries1621309133042 implements MigrationInterface {

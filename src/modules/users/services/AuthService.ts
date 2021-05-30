@@ -1,5 +1,3 @@
-/** @format */
-
 import { getCustomRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 

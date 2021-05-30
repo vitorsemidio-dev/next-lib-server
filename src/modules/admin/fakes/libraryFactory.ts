@@ -1,5 +1,3 @@
-/** @format */
-
 import faker from 'faker';
 
 import HashProvider from '@utils/HashProvider';

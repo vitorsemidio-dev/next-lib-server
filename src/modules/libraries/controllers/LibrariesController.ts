@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
 import CreateLibraryService from '../services/CreateLibraryService';
@@ -28,11 +29,8 @@ export default class LibrariesController {
 
 		const libraries = await librariesRepository.find();
 
-		const hostUrl = 'http://localhost:3333';
-
-		const librariesViewModel = libraries.map((item) => ({
-			...item,
-			imgUrl: `${hostUrl}/files/${item.avatar}`,
+		const librariesViewModel = libraries.map((library) => ({
+			...classToClass(library),
 		}));
 
 		return response.json(librariesViewModel);
@@ -48,11 +46,8 @@ export default class LibrariesController {
 			throw new AppError(`Biblioteca com slug "${slug}" não encontrada`, 404);
 		}
 
-		const hostUrl = 'http://localhost:3333';
-
 		const libraryViewModel = {
-			...library,
-			imgUrl: `${hostUrl}/files/${library.avatar}`,
+			...classToClass(library),
 		};
 
 		return response.json(libraryViewModel);

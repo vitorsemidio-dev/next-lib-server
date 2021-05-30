@@ -1,5 +1,3 @@
-/** @format */
-
 import { container } from 'tsyringe';
 
 import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
