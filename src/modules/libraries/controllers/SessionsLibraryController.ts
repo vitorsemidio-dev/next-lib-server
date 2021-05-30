@@ -1,9 +1,6 @@
-/** @format */
-
-import { container } from 'tsyringe';
-/** @format */
-
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import LibraryAuthenticateService from '../services/LibraryAuthenticateService';
 import LibrariesRepository from '../repositories/LibrariesRepository';
@@ -23,7 +20,7 @@ export default class SessionsLibraryController {
 		});
 
 		return response.json({
-			library,
+			library: classToClass(library),
 			token,
 		});
 	}
