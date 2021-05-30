@@ -21,11 +21,10 @@ librariesRouter.post(
 	librariesController.create,
 );
 
-librariesRouter.get('/', librariesController.list);
-librariesRouter.get('/:slug', librariesController.show);
-
 librariesRouter.post('/stock', stockLibraryController.create);
 librariesRouter.get('/stock/:library_id', stockLibraryController.list);
+
+librariesRouter.post('/register-book', stockLibraryController.registerBook);
 
 librariesRouter.post('/sessions', sessionsLibraryController.create);
 
@@ -55,5 +54,8 @@ librariesRouter.get('/rent', async (request, response) => {
 	const booksRented = await rentBookService.executeList();
 	return response.json(booksRented);
 });
+
+librariesRouter.get('/', librariesController.list);
+librariesRouter.get('/:slug', librariesController.show);
 
 export default librariesRouter;
