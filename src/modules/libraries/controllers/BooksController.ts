@@ -65,6 +65,10 @@ export default class BooksController {
 	public async remove(request: Request, response: Response) {
 		const { book_id } = request.params;
 
-		return response.json(book_id);
+		const booksRepository = container.resolve(BooksRepository);
+
+		await booksRepository.remove(book_id);
+
+		return response.status(204).json(book_id);
 	}
 }

@@ -8,4 +8,5 @@ export default interface IBooksRepository {
 	find(): Promise<Book[]>;
 	create(data: ICreateBookDTO): Promise<Book>;
 	findById(id: string): Promise<Book | undefined>;
+	remove(id: string): Promise<void>;
 }
