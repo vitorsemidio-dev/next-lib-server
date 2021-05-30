@@ -14,6 +14,6 @@ booksRouter.get('/:slug', booksController.show);
 
 booksRouter.post('/', imageUpload.single('image'), booksController.create);
 booksRouter.put('/:book_id', booksController.update);
-booksRouter.delete('/', booksController.remove);
+booksRouter.delete('/:book_id', booksController.remove);
 
 export default booksRouter;
