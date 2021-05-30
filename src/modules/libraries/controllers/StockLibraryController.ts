@@ -6,6 +6,7 @@ import LibrariesRepository from '../repositories/LibrariesRepository';
 import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 import AddBookToStockLibraryService from '../services/AddBookToStockLibraryService';
+import CreateBookAndAddToStockLibraryService from '../services/CreateBookAndAddToStockLibraryService';
 import ListStockLibraryService from '../services/ListStockLibraryService';
 
 export default class StockLibraryController {
@@ -62,13 +63,14 @@ export default class StockLibraryController {
 		const librariesRepository = container.resolve(LibrariesRepository);
 		const stockLibraryRepository = container.resolve(StockLibraryRepository);
 
-		const addBookToStockLibraryService = new AddBookToStockLibraryService(
-			booksRepository,
-			librariesRepository,
-			stockLibraryRepository,
-		);
+		const createBookAndAddToStockLibraryService =
+			new CreateBookAndAddToStockLibraryService(
+				booksRepository,
+				librariesRepository,
+				stockLibraryRepository,
+			);
 
-		const registerItem = await addBookToStockLibraryService.executeRefactor({
+		const registerItem = await createBookAndAddToStockLibraryService.execute({
 			library_id,
 			book,
 			quantity,
