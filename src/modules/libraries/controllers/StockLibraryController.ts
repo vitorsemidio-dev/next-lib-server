@@ -46,7 +46,9 @@ export default class StockLibraryController {
 			return {
 				...item.book,
 				quantity: item.quantity,
-				imgUrl: `${hostUrl}/files/${item.book.picture}`,
+				imgUrl: item.book.picture
+					? `${hostUrl}/files/${item.book.picture}`
+					: null,
 			};
 		});
 
