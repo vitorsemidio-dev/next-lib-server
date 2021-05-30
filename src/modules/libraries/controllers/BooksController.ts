@@ -1,9 +1,8 @@
-/** @format */
-
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateBookService from '../services/CreateBookService';
+import UpdateBookService from '../services/UpdateBookService';
 
 import BooksRepository from '../repositories/BooksRepository';
 
@@ -57,14 +56,27 @@ export default class BooksController {
 
 	public async update(request: Request, response: Response) {
 		const { book_id } = request.params;
-		const bookEdited = request.body;
+		const { name, pages } = request.body;
 
-		return response.json(bookEdited);
+		const booksRepository = container.resolve(BooksRepository);
+		const updateBookService = new UpdateBookService(booksRepository);
+
+		const bookUpdated = await updateBookService.execute({
+			book_id,
+			name,
+			pages,
+		});
+
+		return response.status(204).json();
 	}
 
 	public async remove(request: Request, response: Response) {
 		const { book_id } = request.params;
 
-		return response.json(book_id);
+		const booksRepository = container.resolve(BooksRepository);
+
+		await booksRepository.remove(book_id);
+
+		return response.status(204).json(book_id);
 	}
 }

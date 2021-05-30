@@ -47,6 +47,16 @@ class BooksRepository implements IBooksRepository {
 
 		return books || [];
 	}
+
+	public async remove(id: string): Promise<void> {
+		await this.ormRepository.delete(id);
+	}
+
+	public async update(book: Book): Promise<any> {
+		const bookUpdated = await this.ormRepository.save(book);
+
+		return bookUpdated;
+	}
 }
 
 export default BooksRepository;
