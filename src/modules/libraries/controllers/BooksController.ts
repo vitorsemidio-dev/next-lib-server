@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateBookService from '../services/CreateBookService';
 import UpdateBookService from '../services/UpdateBookService';
@@ -12,11 +13,8 @@ export default class BooksController {
 
 		const books = await booksRepository.find();
 
-		const hostUrl = 'http://localhost:3333';
-
 		const booksViewModel = books.map((item) => ({
-			...item,
-			imgUrl: `${hostUrl}/files/${item.picture}`,
+			...classToClass(item),
 		}));
 
 		return response.json(booksViewModel);
@@ -28,10 +26,8 @@ export default class BooksController {
 		const booksRepository = container.resolve(BooksRepository);
 		const book = await booksRepository.findBySlug(slug);
 
-		const hostUrl = 'http://localhost:3333';
 		const bookViewModel = {
-			...book,
-			imgUrl: `${hostUrl}/files/${book?.picture}`,
+			...classToClass(book),
 		};
 
 		return response.json(bookViewModel);
