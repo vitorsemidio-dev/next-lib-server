@@ -38,7 +38,7 @@ export default class CreateBookService {
 			slug,
 			author,
 			pages,
-			picture,
+			picture: picture || '',
 		});
 
 		return book;

@@ -13,7 +13,29 @@ export default class BooksController {
 
 		const books = await booksRepository.find();
 
-		return response.json(books);
+		const hostUrl = 'http://localhost:3333';
+
+		const booksViewModel = books.map((item) => ({
+			...item,
+			imgUrl: `${hostUrl}/files/${item.picture}`,
+		}));
+
+		return response.json(booksViewModel);
+	}
+
+	public async show(request: Request, response: Response) {
+		const { slug } = request.params;
+
+		const booksRepository = container.resolve(BooksRepository);
+		const book = await booksRepository.findBySlug(slug);
+
+		const hostUrl = 'http://localhost:3333';
+		const bookViewModel = {
+			...book,
+			imgUrl: `${hostUrl}/files/${book?.picture}`,
+		};
+
+		return response.json(bookViewModel);
 	}
 
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -31,5 +53,18 @@ export default class BooksController {
 		});
 
 		return response.json(book);
+	}
+
+	public async update(request: Request, response: Response) {
+		const { book_id } = request.params;
+		const bookEdited = request.body;
+
+		return response.json(bookEdited);
+	}
+
+	public async remove(request: Request, response: Response) {
+		const { book_id } = request.params;
+
+		return response.json(book_id);
 	}
 }

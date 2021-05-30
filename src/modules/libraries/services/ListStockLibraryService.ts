@@ -32,7 +32,7 @@ export default class ListStockLibrary {
 		);
 
 		if (!stock || stock.length === 0) {
-			throw new AppError('Library without books', 404);
+			return [];
 		}
 
 		return stock;

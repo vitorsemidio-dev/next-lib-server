@@ -1,5 +1,3 @@
-/** @format */
-
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 
@@ -42,13 +40,40 @@ export default class StockLibraryController {
 			library_id,
 		});
 
+		const hostUrl = 'http://localhost:3333';
+
 		const stockViewModel = stockLibrary.map((item) => {
 			return {
 				...item.book,
 				quantity: item.quantity,
+				imgUrl: item.book.picture
+					? `${hostUrl}/files/${item.book.picture}`
+					: null,
 			};
 		});
 
 		return response.json(stockViewModel);
+	}
+
+	public async registerBook(request: Request, response: Response) {
+		const { library_id, book, quantity } = request.body;
+
+		const booksRepository = container.resolve(BooksRepository);
+		const librariesRepository = container.resolve(LibrariesRepository);
+		const stockLibraryRepository = container.resolve(StockLibraryRepository);
+
+		const addBookToStockLibraryService = new AddBookToStockLibraryService(
+			booksRepository,
+			librariesRepository,
+			stockLibraryRepository,
+		);
+
+		const registerItem = await addBookToStockLibraryService.executeRefactor({
+			library_id,
+			book,
+			quantity,
+		});
+
+		return response.json(registerItem);
 	}
 }

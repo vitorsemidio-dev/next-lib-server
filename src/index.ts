@@ -4,6 +4,7 @@ import 'express-async-errors';
 import 'reflect-metadata';
 import './shared/database';
 import './shared/container';
+import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 
 import AppError from './shared/errors/AppError';
@@ -11,6 +12,7 @@ import uploadConfig from './shared/config/upload';
 import routers from './shared/routers';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(routers);
 
