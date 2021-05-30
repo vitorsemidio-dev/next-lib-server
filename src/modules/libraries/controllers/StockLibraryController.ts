@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import BooksRepository from '../repositories/BooksRepository';
 import LibrariesRepository from '../repositories/LibrariesRepository';
@@ -41,15 +42,10 @@ export default class StockLibraryController {
 			library_id,
 		});
 
-		const hostUrl = 'http://localhost:3333';
-
 		const stockViewModel = stockLibrary.map((item) => {
 			return {
-				...item.book,
+				...classToClass(item.book),
 				quantity: item.quantity,
-				imgUrl: item.book.picture
-					? `${hostUrl}/files/${item.book.picture}`
-					: null,
 			};
 		});
 
