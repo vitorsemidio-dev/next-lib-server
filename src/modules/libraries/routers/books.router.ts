@@ -12,6 +12,11 @@ booksRouter.get('/:slug', booksController.show);
 
 booksRouter.post('/', imageUpload.single('image'), booksController.create);
 booksRouter.put('/:book_id', booksController.update);
+booksRouter.patch(
+	'/:book_id',
+	imageUpload.single('image'),
+	booksController.updateAvatar,
+);
 booksRouter.delete('/:book_id', booksController.remove);
 
 export default booksRouter;

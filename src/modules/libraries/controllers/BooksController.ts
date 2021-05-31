@@ -75,4 +75,18 @@ export default class BooksController {
 
 		return response.status(204).json(book_id);
 	}
+
+	public async updateAvatar(request: Request, response: Response) {
+		const { filename: picture } = request.file;
+		const { book_id } = request.params;
+
+		console.log('Chamou serviço AtualizarPictureBook');
+		console.log('Removeu imagem antiga');
+		console.log('Retornou sucesso pro front');
+
+		return response.json({
+			picture,
+			book_id: book_id,
+		});
+	}
 }
