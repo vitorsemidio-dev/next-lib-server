@@ -6,6 +6,7 @@ import CreateBookService from '../services/CreateBookService';
 import UpdateBookService from '../services/UpdateBookService';
 
 import BooksRepository from '../repositories/BooksRepository';
+import UpdateImageBookService from '../services/UpdateImageBookService';
 
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
@@ -77,16 +78,20 @@ export default class BooksController {
 	}
 
 	public async updateAvatar(request: Request, response: Response) {
-		const { filename: picture } = request.file;
+		const { filename } = request.file;
 		const { book_id } = request.params;
 
-		console.log('Chamou serviço AtualizarPictureBook');
-		console.log('Removeu imagem antiga');
-		console.log('Retornou sucesso pro front');
+		const booksRepository = container.resolve(BooksRepository);
+
+		const updateImageBookService = new UpdateImageBookService(booksRepository);
+
+		const bookUpdated = await updateImageBookService.execute({
+			filename,
+			book_id,
+		});
 
 		return response.json({
-			picture,
-			book_id: book_id,
+			bookUpdated,
 		});
 	}
 }
