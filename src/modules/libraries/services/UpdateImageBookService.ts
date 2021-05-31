@@ -1,5 +1,8 @@
+import fs from 'fs';
+import path from 'path';
 import { inject, injectable } from 'tsyringe';
 
+import uploadConfig from '@shared/config/upload';
 import AppError from '@shared/errors/AppError';
 import BooksRepository from '../repositories/BooksRepository';
 
@@ -23,7 +26,7 @@ export default class UpdateImageBookService {
 		}
 
 		if (book.picture) {
-			// TODO: Remover arquivo existente
+			await this.deleteImageFile(book.picture);
 		}
 
 		book.picture = filename;
@@ -31,5 +34,17 @@ export default class UpdateImageBookService {
 		const bookUpdated = await this.repository.update(book);
 
 		return bookUpdated;
+	}
+
+	private async deleteImageFile(filename: string) {
+		const filePath = path.resolve(uploadConfig.destination, filename);
+
+		try {
+			await fs.promises.stat(filePath);
+		} catch (err) {
+			return;
+		}
+
+		await fs.promises.unlink(filePath);
 	}
 }
