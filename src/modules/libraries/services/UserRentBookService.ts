@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe';
-import { Repository, getManager } from 'typeorm';
+import { getManager } from 'typeorm';
 
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
-import RentBook from '@shared/database/entities/RentBook';
 
 import BooksRepository from '../repositories/BooksRepository';
 import StockLibraryRepository from '../repositories/StockLibraryRepository';
