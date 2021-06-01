@@ -48,7 +48,7 @@ class BooksRepository implements IBooksRepository {
 
 	public async findByIdWithRelations(id: string) {
 		const book = await this.ormRepository.findOne(id, {
-			relations: [],
+			relations: ['stockLibrary'],
 		});
 
 		return book;
