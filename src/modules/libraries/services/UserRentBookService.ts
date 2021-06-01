@@ -5,7 +5,6 @@ import UsersRepository from '@modules/users/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
 
 import BooksRepository from '../repositories/BooksRepository';
-import StockLibraryRepository from '../repositories/StockLibraryRepository';
 import RentBooksRepository from '../repositories/RentBooksRepository';
 
 interface IRequest {
@@ -19,8 +18,6 @@ export default class UserRentBookService {
 		private usersRepository: UsersRepository,
 		@inject('BooksRepository')
 		private booksRepository: BooksRepository,
-		@inject('StockLibraryRepository')
-		private stockLibraryRepository: StockLibraryRepository,
 		@inject('RentBooksRepository')
 		private rentBooksRepository: RentBooksRepository,
 	) {}

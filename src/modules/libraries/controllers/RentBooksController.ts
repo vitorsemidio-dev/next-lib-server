@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 
 import BooksRepository from '../repositories/BooksRepository';
@@ -13,15 +12,13 @@ export default class RentBooksController {
 	public async create(request: Request, response: Response) {
 		const { user_id, book_id } = request.body;
 
-		const rentBookRepository = container.resolve(RentBooksRepository);
-		const stockLibraryRepository = container.resolve(StockLibraryRepository);
 		const usersRepository = container.resolve(UsersRepository);
 		const booksRepository = container.resolve(BooksRepository);
+		const rentBookRepository = container.resolve(RentBooksRepository);
 
 		const rentBookService = new UserRentBookService(
 			usersRepository,
 			booksRepository,
-			stockLibraryRepository,
 			rentBookRepository,
 		);
 
