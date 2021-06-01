@@ -21,14 +21,15 @@ export default class UserRentBookService {
 		console.log('UserRentBookService');
 		console.log(`User Id: [${user_id}] | Book Id: [${book_id}]`);
 
-		const userExists = await this.usersRepository.findById(user_id);
+		const [userExists, bookExists] = await Promise.all([
+			this.usersRepository.findById(user_id),
+			this.booksRepository.findById(book_id),
+		]);
 
 		if (!userExists) {
 			// throw new AppError('User does not exists', 404)
 			console.log('[ERROR 404]: User does not exists');
 		}
-
-		const bookExists = await this.booksRepository.findById(book_id);
 
 		if (!bookExists) {
 			// throw new AppError('Book does not exists', 404)
