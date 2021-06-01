@@ -23,6 +23,7 @@ export default class RentBooksController {
 			usersRepository,
 			booksRepository,
 			stockLibraryRepository,
+			rentBookRepository,
 		);
 
 		const bookRented = await rentBookService.execute({

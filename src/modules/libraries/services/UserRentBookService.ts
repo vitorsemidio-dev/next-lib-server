@@ -1,7 +1,10 @@
 import { inject, injectable } from 'tsyringe';
+import { Repository } from 'typeorm';
 
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
+import RentBook from '@shared/database/entities/RentBook';
+
 import BooksRepository from '../repositories/BooksRepository';
 import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
@@ -18,6 +21,7 @@ export default class UserRentBookService {
 		private booksRepository: BooksRepository,
 		@inject('StockLibraryRepository')
 		private stockLibraryRepository: StockLibraryRepository,
+		private rentBooksRepository: Repository<RentBook>,
 	) {}
 
 	public async execute({ user_id, book_id }: IRequest): Promise<any> {
