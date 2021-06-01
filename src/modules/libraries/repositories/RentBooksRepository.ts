@@ -14,7 +14,7 @@ export default class RentBooksRepository implements IRentBooksRepository {
 	constructor() {
 		this.ormRepository = getRepository(RentBook);
 	}
-	public async createInstance(rentBookData: IRequest) {
+	public createInstance(rentBookData: IRequest) {
 		const bookRented = this.ormRepository.create(rentBookData);
 
 		return bookRented;

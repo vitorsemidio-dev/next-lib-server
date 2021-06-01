@@ -6,5 +6,5 @@ interface IRentBookDTO {
 }
 
 export default interface IRentBooksRepository {
-	createInstance(data: IRentBookDTO): Promise<RentBook>;
+	createInstance(data: IRentBookDTO): RentBook;
 }
