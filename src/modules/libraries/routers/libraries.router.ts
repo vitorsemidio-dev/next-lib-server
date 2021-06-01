@@ -45,7 +45,10 @@ librariesRouter.post('/rent', async (request, response) => {
 	// const bookRented = { user_id, library_id, book_id };
 	const rentBookService = new UserRentBookService();
 
-	const bookRented = await rentBookService.execute();
+	const bookRented = await rentBookService.execute({
+		user_id,
+		book_id,
+	});
 
 	return response.json(bookRented);
 });
