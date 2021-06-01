@@ -1,16 +1,17 @@
 import { Router } from 'express';
 
 import LibrariesController from '../controllers/LibrariesController';
+import RentBooksController from '../controllers/RentBooksController';
 import SessionsLibraryController from '../controllers/SessionsLibraryController';
 import StockLibraryController from '../controllers/StockLibraryController';
 import imageUpload from '@shared/middlewares/imageUpload';
 
 import RentBookService from '../services/RentBookService';
-import UserRentBookService from '../services/UserRentBookService';
 
 const librariesRouter = Router();
 
 const librariesController = new LibrariesController();
+const rentBooksController = new RentBooksController();
 const stockLibraryController = new StockLibraryController();
 const sessionsLibraryController = new SessionsLibraryController();
 
@@ -39,19 +40,7 @@ librariesRouter.post('/sessions', sessionsLibraryController.create);
 // 	return response.json(bookRented);
 // });
 
-librariesRouter.post('/rent', async (request, response) => {
-	const { user_id, library_id, book_id } = request.body;
-
-	// const bookRented = { user_id, library_id, book_id };
-	const rentBookService = new UserRentBookService();
-
-	const bookRented = await rentBookService.execute({
-		user_id,
-		book_id,
-	});
-
-	return response.json(bookRented);
-});
+librariesRouter.post('/rent', rentBooksController.create);
 
 librariesRouter.get('/rent', async (request, response) => {
 	const rentBookService = new RentBookService();
