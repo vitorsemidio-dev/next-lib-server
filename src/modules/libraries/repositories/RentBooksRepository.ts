@@ -19,4 +19,14 @@ export default class RentBooksRepository implements IRentBooksRepository {
 
 		return bookRented;
 	}
+
+	public async findByUserId(user_id: string) {
+		const booksRented = await this.ormRepository.find({
+			where: {
+				user_id,
+			},
+		});
+
+		return booksRented;
+	}
 }

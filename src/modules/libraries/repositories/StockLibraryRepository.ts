@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, In, Repository } from 'typeorm';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';
 import IStockLibraryRepository from './interfaces/IStockLibraryRepository';
@@ -29,6 +29,17 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 		const stockItem = await this.ormRepository.findOne(id);
 
 		return stockItem;
+	}
+
+	public async findByIds(ids: string[], relations?: string[]) {
+		const stockList = await this.ormRepository.find({
+			where: {
+				id: In(ids),
+			},
+			relations,
+		});
+
+		return stockList;
 	}
 
 	public async findStocksWithLibraryId(id: string): Promise<StockLibrary[]> {
