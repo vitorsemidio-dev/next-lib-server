@@ -6,6 +6,7 @@ import StockLibraryController from '../controllers/StockLibraryController';
 import imageUpload from '@shared/middlewares/imageUpload';
 
 import RentBookService from '../services/RentBookService';
+import UserRentBookService from '../services/UserRentBookService';
 
 const librariesRouter = Router();
 
@@ -41,7 +42,10 @@ librariesRouter.post('/sessions', sessionsLibraryController.create);
 librariesRouter.post('/rent', async (request, response) => {
 	const { user_id, library_id, book_id } = request.body;
 
-	const bookRented = { user_id, library_id, book_id };
+	// const bookRented = { user_id, library_id, book_id };
+	const rentBookService = new UserRentBookService();
+
+	const bookRented = await rentBookService.execute();
 
 	return response.json(bookRented);
 });
