@@ -23,7 +23,7 @@ export default class UserRentBookService {
 
 		const [userExists, bookExists] = await Promise.all([
 			this.usersRepository.findById(user_id),
-			this.booksRepository.findById(book_id),
+			this.booksRepository.findByIdWithRelations(book_id),
 		]);
 
 		if (!userExists) {

@@ -46,6 +46,14 @@ class BooksRepository implements IBooksRepository {
 		return books || [];
 	}
 
+	public async findByIdWithRelations(id: string) {
+		const book = await this.ormRepository.findOne(id, {
+			relations: [],
+		});
+
+		return book;
+	}
+
 	public async remove(id: string): Promise<void> {
 		await this.ormRepository.delete(id);
 	}
