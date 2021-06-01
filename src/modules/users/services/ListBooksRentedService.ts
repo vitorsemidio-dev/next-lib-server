@@ -1,36 +1,30 @@
-import { getRepository, In, Repository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 
-import StockLibrary from '@shared/database/entities/StockLibrary';
-import RentBook from '@shared/database/entities/RentBook';
 import Book from '@shared/database/entities/Book';
+import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
+import RentBooksRepository from '@modules/libraries/repositories/RentBooksRepository';
 
 interface IResponse {
 	user_id: string;
 }
 
+@injectable()
 export default class ListBooksRentedService {
-	private rentBookRepository: Repository<RentBook>;
-	private stockLibraryRepository: Repository<StockLibrary>;
-
-	constructor() {
-		this.rentBookRepository = getRepository(RentBook);
-		this.stockLibraryRepository = getRepository(StockLibrary);
-	}
+	constructor(
+		@inject('RentBooksRepository')
+		private rentBookRepository: RentBooksRepository,
+		@inject('StockLibraryRepository')
+		private stockLibraryRepository: StockLibraryRepository,
+	) {}
 	public async execute({ user_id }: IResponse): Promise<Book[]> {
-		const rented = await this.rentBookRepository.find({
-			where: {
-				user_id,
-			},
-		});
+		const rented = await this.rentBookRepository.findByUserId(user_id);
 
 		const stockIds = rented.map((item) => item.stock_library_id);
 
-		const stockWithBook = await this.stockLibraryRepository.find({
-			where: {
-				id: In(stockIds),
-			},
-			relations: ['book'],
-		});
+		const stockWithBook = await this.stockLibraryRepository.findByIds(
+			stockIds,
+			['book'],
+		);
 
 		const booksRented = stockWithBook.map((item) => item.book);
 
