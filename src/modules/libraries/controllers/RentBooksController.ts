@@ -9,12 +9,13 @@ import RentBook from '@shared/database/entities/RentBook';
 import BooksRepository from '../repositories/BooksRepository';
 
 import UserRentBookService from '../services/UserRentBookService';
+import RentBooksRepository from '../repositories/RentBooksRepository';
 
 export default class RentBooksController {
 	public async create(request: Request, response: Response) {
 		const { user_id, library_id, book_id } = request.body;
 
-		const rentBookRepository = getRepository(RentBook);
+		const rentBookRepository = container.resolve(RentBooksRepository);
 
 		const stockLibraryRepository = container.resolve(StockLibraryRepository);
 		const usersRepository = container.resolve(UsersRepository);

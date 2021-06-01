@@ -7,6 +7,7 @@ import RentBook from '@shared/database/entities/RentBook';
 
 import BooksRepository from '../repositories/BooksRepository';
 import StockLibraryRepository from '../repositories/StockLibraryRepository';
+import RentBooksRepository from '../repositories/RentBooksRepository';
 
 interface IRequest {
 	user_id: string;
@@ -21,7 +22,8 @@ export default class UserRentBookService {
 		private booksRepository: BooksRepository,
 		@inject('StockLibraryRepository')
 		private stockLibraryRepository: StockLibraryRepository,
-		private rentBooksRepository: Repository<RentBook>,
+		@inject('RentBooksRepository')
+		private rentBooksRepository: RentBooksRepository,
 	) {}
 
 	public async execute({ user_id, book_id }: IRequest): Promise<any> {
@@ -46,7 +48,7 @@ export default class UserRentBookService {
 
 		stockItem.quantity -= 1;
 
-		const bookRented = this.rentBooksRepository.create({
+		const bookRented = this.rentBooksRepository.createInstance({
 			user_id,
 			stock_library_id: stockItem.id,
 		});
