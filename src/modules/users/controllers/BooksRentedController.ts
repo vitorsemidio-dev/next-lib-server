@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { classToClass } from 'class-transformer';
 
 import ListBooksRentedService from '../services/ListBooksRentedService';
 
@@ -11,6 +12,6 @@ export default class BooksRentedController {
 			user_id,
 		});
 
-		return response.json(booksRented);
+		return response.json(classToClass(booksRented));
 	}
 }

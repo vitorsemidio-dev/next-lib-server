@@ -1,6 +1,6 @@
 import { getRepository, In, Repository } from 'typeorm';
 
-import StockLibrary from 'shared/database/entities/StockLibrary';
+import StockLibrary from '@shared/database/entities/StockLibrary';
 import RentBook from '@shared/database/entities/RentBook';
 
 interface IResponse {
