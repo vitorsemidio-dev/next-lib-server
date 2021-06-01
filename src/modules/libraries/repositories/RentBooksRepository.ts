@@ -8,7 +8,7 @@ interface IRequest {
 	stock_library_id: string;
 }
 
-export class RentBooksRepository implements IRentBooksRepository {
+export default class RentBooksRepository implements IRentBooksRepository {
 	private ormRepository: Repository<RentBook>;
 
 	constructor() {
