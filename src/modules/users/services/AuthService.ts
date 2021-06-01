@@ -1,12 +1,12 @@
-import { getCustomRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
+import { inject, injectable } from 'tsyringe';
 
 import User from '@shared/database/entities/User';
 import AppError from '@shared/errors/AppError';
 import env from '@shared/environment/env.js';
 
-import UsersRepository from '../repositories/UsersRepository';
 import HashProvider from '@utils/HashProvider';
+import IUsersRepository from '../repositories/interfaces/IUsersRepository';
 
 interface IRequest {
 	email: string;
@@ -18,15 +18,15 @@ interface IResponse {
 	token: string;
 }
 
+@injectable()
 export default class AuthService {
-	private repository: UsersRepository;
-
-	constructor() {
-		this.repository = getCustomRepository(UsersRepository);
-	}
+	constructor(
+		@inject('UsersRepository')
+		private usersRepository: IUsersRepository,
+	) {}
 
 	public async execute({ email, password }: IRequest): Promise<IResponse> {
-		const user = await this.repository.findByEmail(email);
+		const user = await this.usersRepository.findByEmail(email);
 
 		if (!user) throw new AppError('Email and password does not match', 401);
 
