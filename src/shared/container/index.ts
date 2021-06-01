@@ -2,10 +2,15 @@ import { container } from 'tsyringe';
 
 import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
 import BooksRepository from '@modules/libraries/repositories/BooksRepository';
+
 import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
 import LibrariesRepository from '@modules/libraries/repositories/LibrariesRepository';
+
 import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
 import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
+
+import IRentBooksRepository from '@modules/libraries/repositories/interfaces/IRentBooksRepository';
+import RentBooksRepository from '@modules/libraries/repositories/RentBooksRepository';
 
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository';
 import UsersRepository from '@modules/users/repositories/UsersRepository';
@@ -28,4 +33,9 @@ container.registerSingleton<IStockLibraryRepository>(
 container.registerSingleton<IUsersRepository>(
 	'UsersRepository',
 	UsersRepository,
+);
+
+container.registerSingleton<IRentBooksRepository>(
+	'RentBooksRepository',
+	RentBooksRepository,
 );
