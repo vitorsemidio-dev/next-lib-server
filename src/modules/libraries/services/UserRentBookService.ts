@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { Repository } from 'typeorm';
+import { Repository, getManager } from 'typeorm';
 
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
@@ -52,6 +52,18 @@ export default class UserRentBookService {
 		}
 
 		const stockItem = bookExists.stockLibrary[0];
+
+		stockItem.quantity -= 1;
+
+		const bookRented = this.rentBooksRepository.create({
+			user_id,
+			stock_library_id: stockItem.id,
+		});
+
+		await getManager().transaction(async (transactionalEntityManager) => {
+			await transactionalEntityManager.save(stockItem);
+			await transactionalEntityManager.save(bookRented);
+		});
 
 		return {
 			user_id,
