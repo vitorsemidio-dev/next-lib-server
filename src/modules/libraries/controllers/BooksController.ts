@@ -53,7 +53,7 @@ export default class BooksController {
 
 	public async update(request: Request, response: Response) {
 		const { book_id } = request.params;
-		const { name, pages } = request.body;
+		const { name, pages, author } = request.body;
 
 		const booksRepository = container.resolve(BooksRepository);
 		const updateBookService = new UpdateBookService(booksRepository);
@@ -62,9 +62,10 @@ export default class BooksController {
 			book_id,
 			name,
 			pages,
+			author,
 		});
 
-		return response.status(204).json();
+		return response.json(classToClass(bookUpdated));
 	}
 
 	public async remove(request: Request, response: Response) {

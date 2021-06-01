@@ -10,6 +10,7 @@ interface IRequest {
 	book_id: string;
 	name: string;
 	pages: number;
+	author: string;
 }
 
 @injectable()
@@ -18,7 +19,12 @@ export default class UpdateBookService {
 		@inject('BooksRepository')
 		private booksRepository: BooksRepository,
 	) {}
-	public async execute({ book_id, name, pages }: IRequest): Promise<Book> {
+	public async execute({
+		book_id,
+		name,
+		pages,
+		author,
+	}: IRequest): Promise<Book> {
 		const book = await this.booksRepository.findById(book_id);
 
 		if (!book) {
@@ -29,11 +35,11 @@ export default class UpdateBookService {
 
 		const slugExists = await this.booksRepository.findBySlug(slug);
 
-		if (slugExists) {
+		if (slugExists && slugExists.id !== book_id) {
 			throw new AppError(`Name ${name} is already used`, 400);
 		}
 
-		const newBookData = Object.assign(book, { name, pages, slug });
+		const newBookData = Object.assign(book, { name, pages, slug, author });
 
 		const bookUpdated = await this.booksRepository.update(newBookData);
 
