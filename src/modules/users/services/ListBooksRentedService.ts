@@ -2,6 +2,7 @@ import { getRepository, In, Repository } from 'typeorm';
 
 import StockLibrary from '@shared/database/entities/StockLibrary';
 import RentBook from '@shared/database/entities/RentBook';
+import Book from '@shared/database/entities/Book';
 
 interface IResponse {
 	user_id: string;
@@ -15,7 +16,7 @@ export default class ListBooksRentedService {
 		this.rentBookRepository = getRepository(RentBook);
 		this.stockLibraryRepository = getRepository(StockLibrary);
 	}
-	public async execute({ user_id }: IResponse): Promise<any[]> {
+	public async execute({ user_id }: IResponse): Promise<Book[]> {
 		const rented = await this.rentBookRepository.find({
 			where: {
 				user_id,
