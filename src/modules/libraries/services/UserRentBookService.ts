@@ -16,9 +16,9 @@ export default class UserRentBookService {
 		private usersRepository: UsersRepository,
 		@inject('BooksRepository')
 		private booksRepository: BooksRepository,
-	) // @inject('StockRepository')
-	// private stockRepository: StockLibraryRepository
-	{}
+		@inject('StockLibraryRepository')
+		private stockLibraryRepository: StockLibraryRepository,
+	) {}
 
 	public async execute({ user_id, book_id }: IRequest): Promise<any> {
 		console.log('UserRentBookService');
