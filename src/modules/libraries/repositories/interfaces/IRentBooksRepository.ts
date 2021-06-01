@@ -1,3 +1,10 @@
+import RentBook from '@shared/database/entities/RentBook';
+
+interface IRentBookDTO {
+	user_id: string;
+	stock_library_id: string;
+}
+
 export default interface IRentBooksRepository {
-	create(data: any): Promise<any>;
+	createInstance(data: IRentBookDTO): Promise<RentBook>;
 }
