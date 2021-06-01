@@ -5,4 +5,5 @@ export default interface IStockLibraryRepository {
 	create(data: IAddBookToStockLibraryDTO): Promise<StockLibrary>;
 	find(): Promise<StockLibrary[]>;
 	findById(id: string): Promise<StockLibrary | undefined>;
+	findByIds(ids: string[], relations: string[]): Promise<StockLibrary[]>;
 }
