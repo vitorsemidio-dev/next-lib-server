@@ -29,6 +29,7 @@ export default class BooksController {
 
 		const bookViewModel = {
 			...classToClass(book),
+			quantity: book?.stockLibrary[0].quantity,
 		};
 
 		return response.json(bookViewModel);

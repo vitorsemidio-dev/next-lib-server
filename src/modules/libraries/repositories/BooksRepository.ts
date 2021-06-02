@@ -12,7 +12,10 @@ class BooksRepository implements IBooksRepository {
 		this.ormRepository = getRepository(Book);
 	}
 	public async findBySlug(slug: string): Promise<Book | undefined> {
-		const book = await this.ormRepository.findOne({ where: { slug } });
+		const book = await this.ormRepository.findOne({
+			where: { slug },
+			relations: ['stockLibrary'],
+		});
 
 		return book;
 	}
