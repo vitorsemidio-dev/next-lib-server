@@ -12,7 +12,10 @@ class BooksRepository implements IBooksRepository {
 		this.ormRepository = getRepository(Book);
 	}
 	public async findBySlug(slug: string): Promise<Book | undefined> {
-		const book = await this.ormRepository.findOne({ where: { slug } });
+		const book = await this.ormRepository.findOne({
+			where: { slug },
+			relations: ['stockLibrary'],
+		});
 
 		return book;
 	}
@@ -30,8 +33,13 @@ class BooksRepository implements IBooksRepository {
 		return book;
 	}
 
-	public async findById(id: string): Promise<Book | undefined> {
-		const book = await this.ormRepository.findOne(id);
+	public async findById(
+		id: string,
+		relations?: string[],
+	): Promise<Book | undefined> {
+		const book = await this.ormRepository.findOne(id, {
+			relations,
+		});
 
 		return book;
 	}
@@ -58,7 +66,7 @@ class BooksRepository implements IBooksRepository {
 		await this.ormRepository.delete(id);
 	}
 
-	public async update(book: Book): Promise<any> {
+	public async update(book: Book): Promise<Book> {
 		const bookUpdated = await this.ormRepository.save(book);
 
 		return bookUpdated;

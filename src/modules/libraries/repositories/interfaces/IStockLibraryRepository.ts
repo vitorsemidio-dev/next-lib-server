@@ -6,4 +6,9 @@ export default interface IStockLibraryRepository {
 	find(): Promise<StockLibrary[]>;
 	findById(id: string): Promise<StockLibrary | undefined>;
 	findByIds(ids: string[], relations: string[]): Promise<StockLibrary[]>;
+	findStocksWithLibraryId(id: string): Promise<StockLibrary[]>;
+	findStockWithBookId(
+		id: string,
+		relations: string[],
+	): Promise<StockLibrary | undefined>;
 }

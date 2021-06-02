@@ -29,6 +29,7 @@ export default class BooksController {
 
 		const bookViewModel = {
 			...classToClass(book),
+			quantity: book?.stockLibrary[0].quantity,
 		};
 
 		return response.json(bookViewModel);
@@ -53,7 +54,7 @@ export default class BooksController {
 
 	public async update(request: Request, response: Response) {
 		const { book_id } = request.params;
-		const { name, pages, author } = request.body;
+		const { name, pages, author, quantity } = request.body;
 
 		const booksRepository = container.resolve(BooksRepository);
 		const updateBookService = new UpdateBookService(booksRepository);
@@ -63,6 +64,7 @@ export default class BooksController {
 			name,
 			pages,
 			author,
+			quantity,
 		});
 
 		return response.json(classToClass(bookUpdated));

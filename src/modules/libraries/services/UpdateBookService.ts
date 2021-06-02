@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { getManager } from 'typeorm';
 
 import BooksRepository from '@modules/libraries/repositories/BooksRepository';
 
@@ -11,6 +12,7 @@ interface IRequest {
 	name: string;
 	pages: number;
 	author: string;
+	quantity: number;
 }
 
 @injectable()
@@ -24,8 +26,9 @@ export default class UpdateBookService {
 		name,
 		pages,
 		author,
+		quantity,
 	}: IRequest): Promise<Book> {
-		const book = await this.booksRepository.findById(book_id);
+		const book = await this.booksRepository.findById(book_id, ['stockLibrary']);
 
 		if (!book) {
 			throw new AppError('Book does not found', 404);
@@ -39,7 +42,22 @@ export default class UpdateBookService {
 			throw new AppError(`Name ${name} is already used`, 400);
 		}
 
+		if (quantity && quantity < 0) {
+			throw new AppError(`Quantity must be greater than 0`, 400);
+		}
+
 		const newBookData = Object.assign(book, { name, pages, slug, author });
+		const stockItem = book.stockLibrary[0];
+
+		if (quantity !== stockItem.quantity) {
+			stockItem.quantity = quantity;
+			await getManager().transaction(async (transactionalEntityManager) => {
+				await transactionalEntityManager.save(newBookData);
+				await transactionalEntityManager.save(stockItem);
+			});
+
+			return newBookData;
+		}
 
 		const bookUpdated = await this.booksRepository.update(newBookData);
 
