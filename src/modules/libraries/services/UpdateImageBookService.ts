@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { inject, injectable } from 'tsyringe';
 
+import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
 import uploadConfig from '@shared/config/upload';
 import AppError from '@shared/errors/AppError';
-import BooksRepository from '../repositories/BooksRepository';
 
 interface IRequest {
 	book_id: string;
@@ -15,11 +15,11 @@ interface IRequest {
 export default class UpdateImageBookService {
 	constructor(
 		@inject('BooksRepository')
-		private repository: BooksRepository,
+		private booksRepository: IBooksRepository,
 	) {}
 
 	public async execute({ book_id, filename }: IRequest) {
-		const book = await this.repository.findById(book_id);
+		const book = await this.booksRepository.findById(book_id);
 
 		if (!book) {
 			throw new AppError('Book does not found', 404);
@@ -31,7 +31,7 @@ export default class UpdateImageBookService {
 
 		book.picture = filename;
 
-		const bookUpdated = await this.repository.update(book);
+		const bookUpdated = await this.booksRepository.update(book);
 
 		return bookUpdated;
 	}
