@@ -55,4 +55,15 @@ export default class StockLibraryRepository implements IStockLibraryRepository {
 
 		return stocksResult || [];
 	}
+
+	public async findStockWithBookId(book_id: string, relations?: string[]) {
+		const stock = await this.ormRepository.findOne({
+			where: {
+				book_id,
+			},
+			relations,
+		});
+
+		return stock;
+	}
 }
