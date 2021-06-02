@@ -1,11 +1,10 @@
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
+import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
 import Library from '@shared/database/entities/Library';
-import AppError from '@shared/errors/AppError';
 import env from '@shared/environment/env.js';
-
-import LibrariesRepository from '../repositories/LibrariesRepository';
+import AppError from '@shared/errors/AppError';
 import HashProvider from '@utils/HashProvider';
 
 interface IRequest {
@@ -22,11 +21,11 @@ interface IResponse {
 export default class LibraryAuthenticateService {
 	constructor(
 		@inject('LibrariesRepository')
-		private repository: LibrariesRepository,
+		private librariesRepository: ILibrariesRepository,
 	) {}
 
 	public async execute({ email, password }: IRequest): Promise<IResponse> {
-		const library = await this.repository.findByEmail(email);
+		const library = await this.librariesRepository.findByEmail(email);
 
 		if (!library) throw new AppError('Email and password does not match', 401);
 

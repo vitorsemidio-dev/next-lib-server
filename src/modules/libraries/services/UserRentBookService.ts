@@ -1,11 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 import { getManager } from 'typeorm';
 
-import UsersRepository from '@modules/users/repositories/UsersRepository';
+import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
+import IRentBooksRepository from '@modules/libraries/repositories/interfaces/IRentBooksRepository';
+import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository';
 import AppError from '@shared/errors/AppError';
-
-import BooksRepository from '../repositories/BooksRepository';
-import RentBooksRepository from '../repositories/RentBooksRepository';
 
 interface IRequest {
 	user_id: string;
@@ -15,11 +14,11 @@ interface IRequest {
 export default class UserRentBookService {
 	constructor(
 		@inject('UsersRepository')
-		private usersRepository: UsersRepository,
+		private usersRepository: IUsersRepository,
 		@inject('BooksRepository')
-		private booksRepository: BooksRepository,
+		private booksRepository: IBooksRepository,
 		@inject('RentBooksRepository')
-		private rentBooksRepository: RentBooksRepository,
+		private rentBooksRepository: IRentBooksRepository,
 	) {}
 
 	public async execute({ user_id, book_id }: IRequest): Promise<any> {

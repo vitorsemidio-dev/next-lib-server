@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import slugfy from '@utils/slugfy';
+import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
 import Book from '@shared/database/entities/Book';
-import BooksRepository from '../repositories/BooksRepository';
 import AppError from '@shared/errors/AppError';
+import slugfy from '@utils/slugfy';
 
 interface IRequest {
 	name: string;
@@ -16,7 +16,7 @@ interface IRequest {
 export default class CreateBookService {
 	constructor(
 		@inject('BooksRepository')
-		private repository: BooksRepository,
+		private booksRepository: IBooksRepository,
 	) {}
 	public async execute({
 		name,
@@ -26,12 +26,12 @@ export default class CreateBookService {
 	}: IRequest): Promise<Book> {
 		const slug = slugfy(name);
 
-		const checkBook = await this.repository.findBySlug(slug);
+		const checkBook = await this.booksRepository.findBySlug(slug);
 
 		if (checkBook)
 			throw new AppError(`The book ${name} is already registered`, 400);
 
-		const book = await this.repository.create({
+		const book = await this.booksRepository.create({
 			name,
 			slug,
 			author,

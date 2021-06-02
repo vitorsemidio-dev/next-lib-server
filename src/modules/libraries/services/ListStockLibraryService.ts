@@ -1,24 +1,22 @@
-import {} from 'typeorm';
-import { container } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
+import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
+import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
 import AppError from '@shared/errors/AppError';
 import StockLibrary from '@shared/database/entities/StockLibrary';
-
-import LibrariesRepository from '../repositories/LibrariesRepository';
-import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 interface IRequest {
 	library_id: string;
 }
 
-export default class ListStockLibrary {
-	private librariesRepository: LibrariesRepository;
-	private stockLibraryRepository: StockLibraryRepository;
-
-	constructor() {
-		this.librariesRepository = container.resolve('LibrariesRepository');
-		this.stockLibraryRepository = container.resolve('StockLibraryRepository');
-	}
+@injectable()
+export default class ListStockLibraryService {
+	constructor(
+		@inject('LibrariesRepository')
+		private librariesRepository: ILibrariesRepository,
+		@inject('StockLibraryRepository')
+		private stockLibraryRepository: IStockLibraryRepository,
+	) {}
 
 	public async execute({ library_id }: IRequest): Promise<StockLibrary[]> {
 		const library = await this.librariesRepository.findById(library_id);

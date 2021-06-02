@@ -36,7 +36,13 @@ export default class StockLibraryController {
 	public async list(request: Request, response: Response) {
 		const { library_id } = request.params;
 
-		const stockLibraryService = new ListStockLibraryService();
+		const librariesRepository = container.resolve(LibrariesRepository);
+		const stockLibraryRepository = container.resolve(StockLibraryRepository);
+
+		const stockLibraryService = new ListStockLibraryService(
+			librariesRepository,
+			stockLibraryRepository,
+		);
 
 		const stockLibrary = await stockLibraryService.execute({
 			library_id,
