@@ -1,11 +1,10 @@
 import { injectable, inject } from 'tsyringe';
 
+import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
+import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
+import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
 import StockLibrary from '@shared/database/entities/StockLibrary';
 import AppError from '@shared/errors/AppError';
-
-import BooksRepository from '../repositories/BooksRepository';
-import LibrariesRepository from '../repositories/LibrariesRepository';
-import StockRepository from '../repositories/StockLibraryRepository';
 
 interface IRequest {
 	library_id: string;
@@ -17,11 +16,11 @@ interface IRequest {
 export default class AddBookToStockLibraryService {
 	constructor(
 		@inject('BooksRepository')
-		private booksRepository: BooksRepository,
+		private booksRepository: IBooksRepository,
 		@inject('LibrariesRepository')
-		private librariesRepository: LibrariesRepository,
+		private librariesRepository: ILibrariesRepository,
 		@inject('StockRepository')
-		private stockRepository: StockRepository,
+		private stockLibraryRepository: IStockLibraryRepository,
 	) {}
 
 	public async execute({
@@ -37,7 +36,7 @@ export default class AddBookToStockLibraryService {
 
 		if (!book) throw new AppError('Book does not exists', 400);
 
-		const stockItem = await this.stockRepository.create({
+		const stockItem = await this.stockLibraryRepository.create({
 			book,
 			library,
 			quantity,
