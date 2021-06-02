@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe';
 
-import CreateBookService from './CreateBookService';
-import AddBookToStockLibraryService from './AddBookToStockLibraryService';
+import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
+import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
+import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
 
-import BooksRepository from '../repositories/BooksRepository';
-import LibrariesRepository from '../repositories/LibrariesRepository';
-import StockRepository from '../repositories/StockLibraryRepository';
+import AddBookToStockLibraryService from './AddBookToStockLibraryService';
+import CreateBookService from './CreateBookService';
 
 interface IRequest {
 	library_id: string;
@@ -22,11 +22,11 @@ interface IRequest {
 export default class CreateBookAndAddToStockLibraryService {
 	constructor(
 		@inject('BooksRepository')
-		private booksRepository: BooksRepository,
+		private booksRepository: IBooksRepository,
 		@inject('LibrariesRepository')
-		private librariesRepository: LibrariesRepository,
+		private librariesRepository: ILibrariesRepository,
 		@inject('StockRepository')
-		private stockRepository: StockRepository,
+		private stockRepository: IStockLibraryRepository,
 	) {}
 
 	public async execute({ library_id, book, quantity }: IRequest): Promise<any> {
