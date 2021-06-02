@@ -5,7 +5,7 @@ export default interface IBooksRepository {
 	findBySlug(slug: string): Promise<Book | undefined>;
 	find(): Promise<Book[]>;
 	create(data: ICreateBookDTO): Promise<Book>;
-	findById(id: string): Promise<Book | undefined>;
+	findById(id: string, relations?: string[]): Promise<Book | undefined>;
 	remove(id: string): Promise<void>;
 	update(book: Book): Promise<Book>;
 	findByIdWithRelations(id: string): Promise<Book | undefined>;

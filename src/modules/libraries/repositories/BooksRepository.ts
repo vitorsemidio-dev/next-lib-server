@@ -33,8 +33,13 @@ class BooksRepository implements IBooksRepository {
 		return book;
 	}
 
-	public async findById(id: string): Promise<Book | undefined> {
-		const book = await this.ormRepository.findOne(id);
+	public async findById(
+		id: string,
+		relations?: string[],
+	): Promise<Book | undefined> {
+		const book = await this.ormRepository.findOne(id, {
+			relations,
+		});
 
 		return book;
 	}
