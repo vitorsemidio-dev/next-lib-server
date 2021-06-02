@@ -7,7 +7,6 @@ import UpdateBookService from '../services/UpdateBookService';
 
 import BooksRepository from '../repositories/BooksRepository';
 import UpdateImageBookService from '../services/UpdateImageBookService';
-import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
@@ -58,11 +57,7 @@ export default class BooksController {
 		const { name, pages, author, quantity } = request.body;
 
 		const booksRepository = container.resolve(BooksRepository);
-		const stockLibraryRepository = container.resolve(StockLibraryRepository);
-		const updateBookService = new UpdateBookService(
-			booksRepository,
-			stockLibraryRepository,
-		);
+		const updateBookService = new UpdateBookService(booksRepository);
 
 		const bookUpdated = await updateBookService.execute({
 			book_id,

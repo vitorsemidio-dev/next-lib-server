@@ -6,7 +6,6 @@ import BooksRepository from '@modules/libraries/repositories/BooksRepository';
 import AppError from '@shared/errors/AppError';
 import slugfy from '@utils/slugfy';
 import Book from '@shared/database/entities/Book';
-import StockLibraryRepository from '../repositories/StockLibraryRepository';
 
 interface IRequest {
 	book_id: string;
@@ -21,8 +20,6 @@ export default class UpdateBookService {
 	constructor(
 		@inject('BooksRepository')
 		private booksRepository: BooksRepository,
-		@inject('StockLibraryRepository')
-		private stockLibraryRepository: StockLibraryRepository,
 	) {}
 	public async execute({
 		book_id,
