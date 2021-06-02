@@ -50,23 +50,16 @@ export default class UpdateBookService {
 		}
 
 		const newBookData = Object.assign(book, { name, pages, slug, author });
+		const stockItem = book.stockLibrary[0];
 
-		if (quantity) {
-			const stock = await this.stockLibraryRepository.findStockWithBookId(
-				book_id,
-			);
+		if (quantity !== stockItem.quantity) {
+			stockItem.quantity = quantity;
+			await getManager().transaction(async (transactionalEntityManager) => {
+				await transactionalEntityManager.save(newBookData);
+				await transactionalEntityManager.save(stockItem);
+			});
 
-			if (!stock) throw new AppError('Stock does not found', 404);
-
-			if (stock.quantity !== quantity) {
-				stock.quantity = quantity;
-				await getManager().transaction(async (transactionalEntityManager) => {
-					await transactionalEntityManager.save(newBookData);
-					await transactionalEntityManager.save(stock);
-				});
-
-				return newBookData;
-			}
+			return newBookData;
 		}
 
 		const bookUpdated = await this.booksRepository.update(newBookData);
