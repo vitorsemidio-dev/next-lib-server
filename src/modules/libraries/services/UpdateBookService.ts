@@ -31,7 +31,7 @@ export default class UpdateBookService {
 		author,
 		quantity,
 	}: IRequest): Promise<Book> {
-		const book = await this.booksRepository.findById(book_id);
+		const book = await this.booksRepository.findById(book_id, ['stockLibrary']);
 
 		if (!book) {
 			throw new AppError('Book does not found', 404);
@@ -59,6 +59,7 @@ export default class UpdateBookService {
 			if (!stock) throw new AppError('Stock does not found', 404);
 
 			if (stock.quantity !== quantity) {
+				stock.quantity = quantity;
 				await getManager().transaction(async (transactionalEntityManager) => {
 					await transactionalEntityManager.save(newBookData);
 					await transactionalEntityManager.save(stock);
