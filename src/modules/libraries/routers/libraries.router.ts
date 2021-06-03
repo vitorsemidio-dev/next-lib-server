@@ -45,6 +45,22 @@ librariesRouter.post(
 	},
 );
 
+librariesRouter.post(
+	'/check-available/email',
+	async (request: Request, response: Response) => {
+		const { email } = request.body;
+
+		if (email === 'email@email.com') {
+			throw new AppError('email is already used', 422);
+		}
+
+		return response.json({
+			available: true,
+			email,
+		});
+	},
+);
+
 librariesRouter.get('/', librariesController.list);
 librariesRouter.get('/:slug', librariesController.show);
 
