@@ -9,7 +9,7 @@ import LibrariesRepository from '../repositories/LibrariesRepository';
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name, email, password } = request.body;
-		const { filename: avatar } = request.file;
+		const avatar = request.file ? request.file.filename : '';
 
 		const librariesRepository = container.resolve(LibrariesRepository);
 		const createLibraryService = new CreateLibraryService(librariesRepository);

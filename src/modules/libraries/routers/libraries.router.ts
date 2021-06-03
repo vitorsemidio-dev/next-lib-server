@@ -50,7 +50,7 @@ librariesRouter.post(
 	async (request: Request, response: Response) => {
 		const { email } = request.body;
 
-		if (email === 'email@email.com') {
+		if (email === 'email-usado@email.com') {
 			throw new AppError('email is already used', 422);
 		}
 
