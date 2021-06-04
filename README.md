@@ -39,6 +39,17 @@ $ yarn dev
 
 > Veja a parte de **scripts {}** do arquivo <kbd>[package.json](https://github.com/vitorsemidio-dev/next-lib-server/blob/master/package.json)</kbd> para saber quais scripts estão disponíveis.
 
+## 🚀 Tecnologias usadas
+
+- [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
+- [Express](https://expressjs.com/pt-br/)
+- [Multer](https://github.com/expressjs/multer)
+- [Node.js](https://nodejs.org/pt-br/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Tsyringe](https://github.com/microsoft/tsyringe)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TypeORM](https://typeorm.io/)
+
 <a name="-autor"></a>
 
 ## 🦸‍♂️ **Autor**
