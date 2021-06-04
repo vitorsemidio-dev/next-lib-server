@@ -13,9 +13,15 @@
 
    <img alt="Made by Vitor Emidio" src="https://img.shields.io/badge/made%20by-Vitor Emidio-%20">
 
-</p>
+  <img src="https://aleen42.github.io/badges/src/node.svg" alt="Node.js" />
+  <img src="https://aleen42.github.io/badges/src/npm.svg" alt="npm" />
+  <img src="https://aleen42.github.io/badges/src/visual_studio_code.svg" alt="Visual Studio Code" />
+  <img src="https://aleen42.github.io/badges/src/eslint.svg" alt="eslint" />
+  <img src="https://aleen42.github.io/badges/src/typescript.svg" alt="TypeScript" />
+  <img src="https://aleen42.github.io/badges/src/docker.svg" alt="Docker" />
+  <img src="https://aleen42.github.io/badges/src/github.svg" alt="Github" />
 
-![](.github/login-page.png)
+</p>
 
 ## Sobre o projeto
 
