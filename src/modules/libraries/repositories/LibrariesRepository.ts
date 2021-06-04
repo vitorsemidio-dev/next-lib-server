@@ -1,10 +1,15 @@
 import { Repository, getRepository } from 'typeorm';
 
-import Library from '@shared/database/entities/Library';
-import ILibrariesRepository from './interfaces/ILibrariesRepository';
 import ICreateLibraryDTO from '@modules/libraries/dtos/ICreateLibraryDTO';
+import Library from '@shared/database/entities/Library';
+import slugfy from '@utils/slugfy';
 
-class LibrariesRepository implements ILibrariesRepository {
+import ILibrariesRepository from './interfaces/ILibrariesRepository';
+import INameAvailabilityRepository from './interfaces/INameAvailabilityRepository';
+
+class LibrariesRepository
+	implements ILibrariesRepository, INameAvailabilityRepository
+{
 	private ormRepository: Repository<Library>;
 	constructor() {
 		this.ormRepository = getRepository(Library);
@@ -43,6 +48,17 @@ class LibrariesRepository implements ILibrariesRepository {
 		const library = await this.ormRepository.findOne(id);
 
 		return library;
+	}
+
+	public async checkNameAvailability(name: string) {
+		const slug = slugfy(name);
+		const isNameUsed = await this.findBySlug(slug);
+
+		if (isNameUsed) {
+			return false;
+		}
+
+		return true;
 	}
 }
 
