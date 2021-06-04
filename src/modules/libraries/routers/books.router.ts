@@ -20,7 +20,7 @@ booksRouter.patch(
 booksRouter.delete('/:book_id', booksController.remove);
 
 booksRouter.post(
-	'/check-available/name',
+	'/check-availability/name',
 	booksController.checkNameAvailability,
 );
 

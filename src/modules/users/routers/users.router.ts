@@ -18,7 +18,7 @@ usersRouter.post('/', imageUpload.single('image'), usersController.create);
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
 
 usersRouter.post(
-	'/check-available/email',
+	'/check-availability/email',
 	usersController.checkEmailAvailability,
 );
 

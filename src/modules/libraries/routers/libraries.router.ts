@@ -33,11 +33,11 @@ librariesRouter.post('/rent', rentBooksController.create);
 
 // Availability
 librariesRouter.post(
-	'/check-available/name',
+	'/check-availability/name',
 	librariesController.checkNameAvailability,
 );
 librariesRouter.post(
-	'/check-available/email',
+	'/check-availability/email',
 	librariesController.checkEmailAvailability,
 );
 
