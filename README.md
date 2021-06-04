@@ -47,7 +47,7 @@ $ yarn
 # Executando as migrations do banco de dados
 $ yarn typeorm migration:run
 
-# Executando a aplicação em modo de desenvolvimento:
+# Executando a aplicação em modo de desenvolvimento
 $ yarn dev
 ```
 
@@ -56,6 +56,7 @@ $ yarn dev
 ## 🚀 Tecnologias usadas
 
 - [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
+- [Docker](https://www.docker.com/)
 - [Express](https://expressjs.com/pt-br/)
 - [Multer](https://github.com/expressjs/multer)
 - [Node.js](https://nodejs.org/pt-br/)
