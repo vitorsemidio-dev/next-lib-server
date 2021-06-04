@@ -1,27 +1,28 @@
 # Ngx-books
 
-<p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/vitorsemidio-dev/next-lib-server?color=%2304D361">
+<div align="center">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/vitorsemidio-dev/next-lib-server?">
+![]()
+<img src="https://aleen42.github.io/badges/src/node.svg" alt="Node.js" />
+<img src="https://aleen42.github.io/badges/src/npm.svg" alt="npm" />
+<img src="https://aleen42.github.io/badges/src/visual_studio_code.svg" alt="Visual Studio Code" />
+<img src="https://aleen42.github.io/badges/src/eslint.svg" alt="eslint" />
+<img src="https://aleen42.github.io/badges/src/typescript.svg" alt="TypeScript" />
+<img src="https://aleen42.github.io/badges/src/docker.svg" alt="Docker" />
+<img src="https://aleen42.github.io/badges/src/github.svg" alt="Github" />
 
-  <a href="https://github.com/vitorsemidio-dev/next-lib-server/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vitorsemidio-dev/next-lib-server?">
+![]()
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/vitorsemidio-dev/next-lib-server?color=%2304D361">
+<img alt="Repository size" src="https://img.shields.io/github/repo-size/vitorsemidio-dev/next-lib-server?">
+<a href="https://github.com/vitorsemidio-dev/next-lib-server/commits/master">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vitorsemidio-dev/next-lib-server?">
+</a>
+<img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?">
+
+  <a href="https://www.linkedin.com/in/vitorsemidio" target="_blank">
+    <img alt="Made by Vitor Emidio" src="https://img.shields.io/badge/Made%20by-Vitor Emidio-%20?style=flat&logo=Linkedin&logoColor=white">
   </a>
-
-   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?">
-
-   <img alt="Made by Vitor Emidio" src="https://img.shields.io/badge/made%20by-Vitor Emidio-%20">
-
-  <img src="https://aleen42.github.io/badges/src/node.svg" alt="Node.js" />
-  <img src="https://aleen42.github.io/badges/src/npm.svg" alt="npm" />
-  <img src="https://aleen42.github.io/badges/src/visual_studio_code.svg" alt="Visual Studio Code" />
-  <img src="https://aleen42.github.io/badges/src/eslint.svg" alt="eslint" />
-  <img src="https://aleen42.github.io/badges/src/typescript.svg" alt="TypeScript" />
-  <img src="https://aleen42.github.io/badges/src/docker.svg" alt="Docker" />
-  <img src="https://aleen42.github.io/badges/src/github.svg" alt="Github" />
-
-</p>
+</div>
 
 ## 🔮 Sobre o projeto
 
