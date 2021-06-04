@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
+import BooksRepository from '../repositories/BooksRepository';
 import CreateBookService from '../services/CreateBookService';
 import UpdateBookService from '../services/UpdateBookService';
-
-import BooksRepository from '../repositories/BooksRepository';
 import UpdateImageBookService from '../services/UpdateImageBookService';
+import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
 
 export default class BooksController {
 	public async list(requet: Request, response: Response): Promise<Response> {
@@ -95,6 +95,23 @@ export default class BooksController {
 
 		return response.json({
 			bookUpdated,
+		});
+	}
+
+	public async checkNameAvailability(request: Request, response: Response) {
+		const { name } = request.body;
+
+		const booksRepository = container.resolve(BooksRepository);
+
+		const checkNameAvailabilityService = new CheckNameAvailabilityService(
+			booksRepository,
+		);
+
+		const isNameAvailable = await checkNameAvailabilityService.execute(name);
+
+		return response.json({
+			available: isNameAvailable,
+			name,
 		});
 	}
 }

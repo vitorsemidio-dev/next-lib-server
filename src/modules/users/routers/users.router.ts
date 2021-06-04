@@ -17,4 +17,9 @@ usersRouter.post('/', imageUpload.single('image'), usersController.create);
 
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
 
+usersRouter.post(
+	'/check-availability/email',
+	usersController.checkEmailAvailability,
+);
+
 export default usersRouter;

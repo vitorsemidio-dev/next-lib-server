@@ -2,10 +2,13 @@ import { getRepository, Repository } from 'typeorm';
 
 import User from '@shared/database/entities/User';
 
-import IUsersRepository from './interfaces/IUsersRepository';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
+import IUsersRepository from './interfaces/IUsersRepository';
+import IEmailAvailabilityRepository from './interfaces/IEmailAvailabilityRepository';
 
-class UsersRepository implements IUsersRepository {
+class UsersRepository
+	implements IUsersRepository, IEmailAvailabilityRepository
+{
 	private ormRepository: Repository<User>;
 
 	constructor() {
@@ -57,6 +60,16 @@ class UsersRepository implements IUsersRepository {
 		});
 
 		return user;
+	}
+
+	public async checkEmailAvailability(email: string) {
+		const isEmailUsed = await this.findByEmail(email);
+
+		if (isEmailUsed) {
+			return false;
+		}
+
+		return true;
 	}
 }
 

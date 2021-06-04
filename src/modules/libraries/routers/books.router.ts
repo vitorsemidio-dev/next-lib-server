@@ -19,4 +19,9 @@ booksRouter.patch(
 );
 booksRouter.delete('/:book_id', booksController.remove);
 
+booksRouter.post(
+	'/check-availability/name',
+	booksController.checkNameAvailability,
+);
+
 export default booksRouter;

@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import CreateUserService from '../services/CreateUserService';
 import UsersRepository from '../repositories/UsersRepository';
+import CreateUserService from '../services/CreateUserService';
+import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
 
 class UsersController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -37,6 +38,23 @@ class UsersController {
 		const user = await usersRepository.userDetail(user_id);
 
 		return response.json(user);
+	}
+
+	public async checkEmailAvailability(request: Request, response: Response) {
+		const { email } = request.body;
+
+		const usersRepository = container.resolve(UsersRepository);
+
+		const checkEmailAvailabilityService = new CheckEmailAvailabilityService(
+			usersRepository,
+		);
+
+		const isEmailAvailable = await checkEmailAvailabilityService.execute(email);
+
+		return response.json({
+			available: isEmailAvailable,
+			email,
+		});
 	}
 }
 
