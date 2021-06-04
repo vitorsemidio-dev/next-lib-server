@@ -5,10 +5,14 @@ import Library from '@shared/database/entities/Library';
 import slugfy from '@utils/slugfy';
 
 import ILibrariesRepository from './interfaces/ILibrariesRepository';
+import IEmailAvailabilityRepository from './interfaces/IEmailAvailabilityRepository';
 import INameAvailabilityRepository from './interfaces/INameAvailabilityRepository';
 
 class LibrariesRepository
-	implements ILibrariesRepository, INameAvailabilityRepository
+	implements
+		ILibrariesRepository,
+		INameAvailabilityRepository,
+		IEmailAvailabilityRepository
 {
 	private ormRepository: Repository<Library>;
 	constructor() {
@@ -55,6 +59,16 @@ class LibrariesRepository
 		const isNameUsed = await this.findBySlug(slug);
 
 		if (isNameUsed) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public async checkEmailAvailability(email: string) {
+		const isEmailUsed = await this.findByEmail(email);
+
+		if (isEmailUsed) {
 			return false;
 		}
 

@@ -1,19 +1,16 @@
-import { inject, injectable } from 'tsyringe';
-
 import AppError from '@shared/errors/AppError';
-import ILibrariesRepository from '../repositories/interfaces/ILibrariesRepository';
 
-@injectable()
+import IEmailAvailabilityRepository from '../repositories/interfaces/IEmailAvailabilityRepository';
+
 export default class CheckEmailAvailabilityService {
-	constructor(
-		@inject('LibrariesRepository')
-		private librariesRepository: ILibrariesRepository,
-	) {}
+	constructor(private entityRepository: IEmailAvailabilityRepository) {}
 
 	public async execute(email: string) {
-		const emailUsed = await this.librariesRepository.findByEmail(email);
+		const isEmailAvailable = await this.entityRepository.checkEmailAvailability(
+			email,
+		);
 
-		if (emailUsed) {
+		if (!isEmailAvailable) {
 			throw new AppError('E-mail is already used', 422);
 		}
 
