@@ -1,11 +1,13 @@
 import { getRepository, In, Repository } from 'typeorm';
 
+import ICreateBookDTO from '@modules/libraries/dtos/ICreateBookDTO';
 import Book from '@shared/database/entities/Book';
+import slugfy from '@utils/slugfy';
 
 import IBooksRepository from './interfaces/IBooksRepository';
-import ICreateBookDTO from '@modules/libraries/dtos/ICreateBookDTO';
+import INameAvailabilityRepository from './interfaces/INameAvailabilityRepository';
 
-class BooksRepository implements IBooksRepository {
+class BooksRepository implements IBooksRepository, INameAvailabilityRepository {
 	private ormRepository: Repository<Book>;
 
 	constructor() {
@@ -70,6 +72,17 @@ class BooksRepository implements IBooksRepository {
 		const bookUpdated = await this.ormRepository.save(book);
 
 		return bookUpdated;
+	}
+
+	public async checkNameAvailability(name: string) {
+		const slug = slugfy(name);
+		const isNameUsed = await this.findBySlug(slug);
+
+		if (isNameUsed) {
+			return false;
+		}
+
+		return true;
 	}
 }
 
