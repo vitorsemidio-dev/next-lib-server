@@ -23,11 +23,11 @@
 
 </p>
 
-## Sobre o projeto
+## 🔮 Sobre o projeto
 
 Aplicação criada para fornecer a possibilidade de biblioteca cadastrarem os livros de seu estoque na plataforma. E os usuários interessados possam navegar pelo sistema a procura de livros e aluguem os que mais gostarem.
 
-### Frontend
+### 🌐 Frontend
 
 Para ter uma experiência completa de uso da aplicação, acesse o repositório do front-end [clicando aqui](https://github.com/vitorsemidio-dev/ngx-books) para cloná-lo e faça com que o cliente e servidor se comuniquem.
 
@@ -37,7 +37,7 @@ Para ter uma experiência completa de uso da aplicação, acesse o repositório 
 git clone https://github.com/vitorsemidio-dev/ngx-books.git
 ```
 
-## **Como rodar o backend?**
+## 🎲 Como rodar o backend?
 
 ```sh
 # Instalando as dependências da aplicação
@@ -65,7 +65,7 @@ $ yarn dev
 
 <a name="-autor"></a>
 
-## 🦸‍♂️ **Autor**
+## 🦸‍♂️ Autor
 
 <p>
 <kbd>
