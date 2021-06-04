@@ -52,4 +52,30 @@ export default class LibrariesController {
 
 		return response.json(libraryViewModel);
 	}
+
+	public async checkNameAvailability(request: Request, response: Response) {
+		const { name } = request.body;
+
+		if (name === 'nome usado') {
+			throw new AppError('name is already used', 422);
+		}
+
+		return response.json({
+			available: true,
+			name,
+		});
+	}
+
+	public async checkEmailAvailability(request: Request, response: Response) {
+		const { email } = request.body;
+
+		if (email === 'email-usado@email.com') {
+			throw new AppError('email is already used', 422);
+		}
+
+		return response.json({
+			available: true,
+			email,
+		});
+	}
 }

@@ -31,34 +31,12 @@ librariesRouter.post('/rent', rentBooksController.create);
 
 librariesRouter.post(
 	'/check-available/name',
-	async (request: Request, response: Response) => {
-		const { name } = request.body;
-
-		if (name === 'nome usado') {
-			throw new AppError('name is already used', 422);
-		}
-
-		return response.json({
-			available: true,
-			name,
-		});
-	},
+	librariesController.checkNameAvailability,
 );
 
 librariesRouter.post(
 	'/check-available/email',
-	async (request: Request, response: Response) => {
-		const { email } = request.body;
-
-		if (email === 'email-usado@email.com') {
-			throw new AppError('email is already used', 422);
-		}
-
-		return response.json({
-			available: true,
-			email,
-		});
-	},
+	librariesController.checkEmailAvailability,
 );
 
 librariesRouter.get('/', librariesController.list);
