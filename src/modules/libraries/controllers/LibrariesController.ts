@@ -3,8 +3,9 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
-import CreateLibraryService from '../services/CreateLibraryService';
 import LibrariesRepository from '../repositories/LibrariesRepository';
+import CreateLibraryService from '../services/CreateLibraryService';
+import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -69,12 +70,16 @@ export default class LibrariesController {
 	public async checkEmailAvailability(request: Request, response: Response) {
 		const { email } = request.body;
 
-		if (email === 'email-usado@email.com') {
-			throw new AppError('email is already used', 422);
-		}
+		const librariesRepository = container.resolve(LibrariesRepository);
+
+		const checkEmailAvailabilityService = new CheckEmailAvailabilityService(
+			librariesRepository,
+		);
+
+		const isEmailAvailable = await checkEmailAvailabilityService.execute(email);
 
 		return response.json({
-			available: true,
+			available: isEmailAvailable,
 			email,
 		});
 	}
