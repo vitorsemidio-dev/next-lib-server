@@ -6,6 +6,7 @@ import AppError from '@shared/errors/AppError';
 import LibrariesRepository from '../repositories/LibrariesRepository';
 import CreateLibraryService from '../services/CreateLibraryService';
 import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
+import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -57,12 +58,16 @@ export default class LibrariesController {
 	public async checkNameAvailability(request: Request, response: Response) {
 		const { name } = request.body;
 
-		if (name === 'nome usado') {
-			throw new AppError('name is already used', 422);
-		}
+		const librariesRepository = container.resolve(LibrariesRepository);
+
+		const checkNameAvailabilityService = new CheckNameAvailabilityService(
+			librariesRepository,
+		);
+
+		const isNameAvailable = await checkNameAvailabilityService.execute(name);
 
 		return response.json({
-			available: true,
+			available: isNameAvailable,
 			name,
 		});
 	}
