@@ -16,13 +16,11 @@
 
 ## Sobre o projeto
 
-Aplicação criada para fornecer a possibilidade de biblioteca cadastrarem seus livros de seu estoque para que usuários possam alugá-los.
+Aplicação criada para fornecer a possibilidade de biblioteca cadastrarem seus livros de seu estoque para que usuários interessados possam alugá-los.
 
-Backend foi desenvolvido utilizando Node.js
+### Frontend
 
-## Frontend
-
-Para acessar o repositório da aplicação web [Clique aqui](https://github.com/vitorsemidio-dev/ngx-books).
+Para acessar o repositório da aplicação web [clique aqui](https://github.com/vitorsemidio-dev/ngx-books).
 
 ## **Como rodar o backend?**
 
