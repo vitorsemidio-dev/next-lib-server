@@ -1,5 +1,17 @@
 # Ngx-books
 
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/vitorsemidio-dev/next-lib-server?color=%2304D361&style=for-the-badge">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/vitorsemidio-dev/next-lib-server?style=for-the-badge">
+
+  <a href="https://github.com/vitorsemidio-dev/next-lib-server/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vitorsemidio-dev/next-lib-server?style=for-the-badge">
+  </a>
+
+   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge">
+</p>
+
 ![](.github/login-page.png)
 
 ## Sobre o projeto
