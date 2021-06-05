@@ -55,6 +55,11 @@ export default class LibrariesController {
 		return response.json(libraryViewModel);
 	}
 
+	public async update(request: Request, response: Response) {
+		const libraryData = request.body;
+		return response.json(libraryData)
+	}
+
 	public async checkNameAvailability(request: Request, response: Response) {
 		const { name } = request.body;
 
