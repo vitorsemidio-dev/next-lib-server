@@ -37,7 +37,7 @@ export default class BooksController {
 
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name, author, pages } = request.body;
-		const { filename: picture } = request.file;
+		const picture = request.file.filename || '';
 
 		const booksRepository = container.resolve(BooksRepository);
 		const createBookService = new CreateBookService(booksRepository);
