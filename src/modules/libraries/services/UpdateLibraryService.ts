@@ -60,15 +60,17 @@ export default class UpdateLibraryService {
 			: library.password;
 
 		const newDataLibrary = Object.assign(library, {
-			name,
+			name: name || library.name,
 			slug,
-			email,
-			avatar,
+			email: email || library.email,
+			avatar: avatar || library.avatar,
 			password: hashedPassword,
 		});
 
-		await this.librariesRepository.update(newDataLibrary);
+		const libraryUpdated = await this.librariesRepository.update(
+			newDataLibrary,
+		);
 
-		return newDataLibrary;
+		return libraryUpdated;
 	}
 }
