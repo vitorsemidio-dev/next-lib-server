@@ -62,6 +62,7 @@ export default class UpdateLibraryService {
 		}
 
 		const newDataLibrary = Object.assign(library, {
+			name,
 			slug,
 			email,
 			avatar,
