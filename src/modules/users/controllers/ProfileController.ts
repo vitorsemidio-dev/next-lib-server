@@ -18,4 +18,9 @@ export default class ProfileController {
 
 		return response.json(user);
 	}
+
+	public async update(request: Request, response: Response) {
+		const newUserData = request.body;
+		return response.json(newUserData);
+	}
 }
