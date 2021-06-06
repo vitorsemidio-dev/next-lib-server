@@ -53,20 +53,18 @@ export default class UpdateLibraryService {
 			}
 		}
 
-		const slug = slugfy(name);
+		const slug = name ? slugfy(name) : library.slug;
 
-		let hashedPassword = null;
-
-		if (password) {
-			hashedPassword = await HashProvider.generateHash(password);
-		}
+		const hashedPassword = password
+			? await HashProvider.generateHash(password)
+			: library.password;
 
 		const newDataLibrary = Object.assign(library, {
 			name,
 			slug,
 			email,
 			avatar,
-			password: hashedPassword || library.password,
+			password: hashedPassword,
 		});
 
 		await this.librariesRepository.update(newDataLibrary);
