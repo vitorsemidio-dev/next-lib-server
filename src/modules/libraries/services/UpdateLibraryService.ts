@@ -49,7 +49,7 @@ export default class UpdateLibraryService {
 				await this.librariesRepository.checkNameAvailability(name);
 
 			if (!isNameAvailable) {
-				throw new AppError('Nam eis already used', 400);
+				throw new AppError('Name is already used', 400);
 			}
 		}
 
@@ -68,8 +68,8 @@ export default class UpdateLibraryService {
 			password: hashedPassword || library.password,
 		});
 
-		// await this.librariesRepository.update(newDataLibrary)
+		await this.librariesRepository.update(newDataLibrary);
 
-		return {} as Library;
+		return newDataLibrary;
 	}
 }
