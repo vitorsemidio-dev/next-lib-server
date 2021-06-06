@@ -56,8 +56,9 @@ export default class LibrariesController {
 	}
 
 	public async update(request: Request, response: Response) {
+		const { library_id } = request.params;
 		const libraryData = request.body;
-		return response.json(libraryData)
+		return response.json({ library_id, libraryData });
 	}
 
 	public async checkNameAvailability(request: Request, response: Response) {
