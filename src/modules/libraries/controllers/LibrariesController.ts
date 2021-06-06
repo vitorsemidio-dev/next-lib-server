@@ -7,6 +7,7 @@ import LibrariesRepository from '../repositories/LibrariesRepository';
 import CreateLibraryService from '../services/CreateLibraryService';
 import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
 import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
+import UpdateLibraryService from '../services/UpdateLibraryService';
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -57,8 +58,22 @@ export default class LibrariesController {
 
 	public async update(request: Request, response: Response) {
 		const { library_id } = request.params;
-		const libraryData = request.body;
-		return response.json({ library_id, libraryData });
+		const { name, email, password } = request.body;
+
+		const avatar = request.file.filename || '';
+
+		const librariesRepository = container.resolve(LibrariesRepository);
+		const updateLibraryService = new UpdateLibraryService(librariesRepository);
+
+		const libraryUpdated = await updateLibraryService.execute({
+			id: library_id,
+			password,
+			avatar,
+			email,
+			name,
+		});
+
+		return response.json(classToClass(libraryUpdated));
 	}
 
 	public async checkNameAvailability(request: Request, response: Response) {
