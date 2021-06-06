@@ -59,8 +59,7 @@ export default class LibrariesController {
 	public async update(request: Request, response: Response) {
 		const { library_id } = request.params;
 		const { name, email, password } = request.body;
-
-		const avatar = request.file.filename || '';
+		const avatar = request.file ? request.file.filename : '';
 
 		const librariesRepository = container.resolve(LibrariesRepository);
 		const updateLibraryService = new UpdateLibraryService(librariesRepository);
