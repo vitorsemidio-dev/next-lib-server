@@ -21,7 +21,16 @@ librariesRouter.post(
 );
 librariesRouter.get('/', librariesController.list);
 librariesRouter.get('/:slug', librariesController.show);
-librariesRouter.put('/:library_id', librariesController.update);
+librariesRouter.put(
+	'/:library_id',
+	imageUpload.single('image'),
+	librariesController.update,
+);
+librariesRouter.patch(
+	'/:library_id',
+	imageUpload.single('image'),
+	librariesController.update,
+);
 
 // Stock Library
 librariesRouter.post('/stock', stockLibraryController.create);
