@@ -1,7 +1,8 @@
 import User from '@shared/database/entities/User';
 import ICreateUserDTO from '../../dtos/ICreateUserDTO';
+import IEmailAvailabilityRepository from './IEmailAvailabilityRepository';
 
-export default interface IUsersRepository {
+export default interface IUsersRepository extends IEmailAvailabilityRepository {
 	create(data: ICreateUserDTO): Promise<User>;
 	find(): Promise<User[]>;
 	findByEmail(email: string): Promise<User | undefined>;

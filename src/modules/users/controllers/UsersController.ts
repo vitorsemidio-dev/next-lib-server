@@ -5,6 +5,7 @@ import { container } from 'tsyringe';
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 import CreateUserService from '../services/CreateUserService';
 import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
+import UpdateUserService from '../services/UpdateUserService';
 import UpdateUserImageService from '../services/UpdateUserImageService';
 
 class UsersController {
@@ -43,10 +44,20 @@ class UsersController {
 	}
 
 	public async update(request: Request, response: Response) {
+		const { user_id } = request.params;
 		const { name, email, password } = request.body;
 
-		// const userResponse = classToClass()
-		return response.json();
+		const usersRepository = container.resolve(UsersRepository);
+		const updateUserService = new UpdateUserService(usersRepository);
+
+		const userUpdated = await updateUserService.execute({
+			id: user_id,
+			email,
+			name,
+			password,
+		});
+
+		return response.json(classToClass(userUpdated));
 	}
 
 	public async updateImage(request: Request, response: Response) {

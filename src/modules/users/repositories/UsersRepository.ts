@@ -4,11 +4,8 @@ import User from '@shared/database/entities/User';
 
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import IUsersRepository from './interfaces/IUsersRepository';
-import IEmailAvailabilityRepository from './interfaces/IEmailAvailabilityRepository';
 
-class UsersRepository
-	implements IUsersRepository, IEmailAvailabilityRepository
-{
+class UsersRepository implements IUsersRepository {
 	private ormRepository: Repository<User>;
 
 	constructor() {
