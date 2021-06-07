@@ -71,6 +71,12 @@ class UsersRepository
 
 		return true;
 	}
+
+	public async update(user: User) {
+		const userUpdated = await this.ormRepository.save(user);
+
+		return userUpdated;
+	}
 }
 
 export default UsersRepository;
