@@ -8,6 +8,7 @@ import CreateLibraryService from '../services/CreateLibraryService';
 import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
 import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
 import UpdateLibraryService from '../services/UpdateLibraryService';
+import UpdateImageLibraryService from '../services/UpdateImageLibraryService';
 
 export default class LibrariesController {
 	public async create(request: Request, response: Response): Promise<Response> {
@@ -70,6 +71,23 @@ export default class LibrariesController {
 			avatar,
 			email,
 			name,
+		});
+
+		return response.json(classToClass(libraryUpdated));
+	}
+
+	public async updateImage(request: Request, response: Response) {
+		const { library_id } = request.params;
+		const avatar = request.file ? request.file.filename : '';
+
+		const librariesRepository = container.resolve(LibrariesRepository);
+		const updateImageLibraryService = new UpdateImageLibraryService(
+			librariesRepository,
+		);
+
+		const libraryUpdated = await updateImageLibraryService.execute({
+			library_id,
+			filename: avatar,
 		});
 
 		return response.json(classToClass(libraryUpdated));

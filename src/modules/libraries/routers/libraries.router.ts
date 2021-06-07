@@ -29,7 +29,7 @@ librariesRouter.put(
 librariesRouter.patch(
 	'/:library_id',
 	imageUpload.single('image'),
-	librariesController.update,
+	librariesController.updateImage,
 );
 
 // Stock Library
