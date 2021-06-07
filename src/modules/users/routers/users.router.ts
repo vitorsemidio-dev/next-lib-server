@@ -17,6 +17,13 @@ usersRouter.post('/', imageUpload.single('image'), usersController.create);
 
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
 
+usersRouter.put('/:user_id', usersController.update);
+usersRouter.patch(
+	'/:user_id',
+	imageUpload.single('image'),
+	usersController.updateImage,
+);
+
 usersRouter.post(
 	'/check-availability/email',
 	usersController.checkEmailAvailability,

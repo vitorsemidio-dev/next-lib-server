@@ -40,6 +40,15 @@ class UsersController {
 		return response.json(user);
 	}
 
+	public async update(request: Request, response: Response) {
+		return response.json();
+	}
+
+	public async updateImage(request: Request, response: Response) {
+		const avatar = request.file ? request.file.filename : '';
+		return response.json();
+	}
+
 	public async checkEmailAvailability(request: Request, response: Response) {
 		const { email } = request.body;
 
