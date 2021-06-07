@@ -48,6 +48,12 @@ class LibrariesRepository
 		return libraries;
 	}
 
+	public async update(libraryData: Library): Promise<Library> {
+		const libraryUpdated = await this.ormRepository.save(libraryData);
+
+		return libraryUpdated;
+	}
+
 	public async findById(id: string) {
 		const library = await this.ormRepository.findOne(id);
 
