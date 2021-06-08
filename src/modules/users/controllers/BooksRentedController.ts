@@ -7,7 +7,6 @@ import StockLibraryRepository from '@modules/libraries/repositories/StockLibrary
 
 import ListBooksRentedService from '../services/ListBooksRentedService';
 import ReturnBookService from '../services/ReturnBookService';
-import UsersRepository from '../repositories/UsersRepository';
 
 export default class BooksRentedController {
 	public async list(request: Request, response: Response) {
@@ -32,12 +31,10 @@ export default class BooksRentedController {
 		const { user_id } = request.params;
 		const book_id = request.query.book_id as string;
 
-		const usersRepository = container.resolve(UsersRepository);
 		const rentBooksRepository = container.resolve(RentBooksRepository);
 		const stockLibraryRepository = container.resolve(StockLibraryRepository);
 
 		const returnBookService = new ReturnBookService(
-			usersRepository,
 			rentBooksRepository,
 			stockLibraryRepository,
 		);

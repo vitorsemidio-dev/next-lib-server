@@ -14,14 +14,12 @@ interface IRequest {
 @injectable()
 export default class ReturnBookService {
 	constructor(
-		@inject('UserRepository')
-		private usersRepository: IUsersRepository,
 		@inject('RentBooksRepository')
 		private rentBookRepository: IRentBooksRepository,
 		@inject('StockLibraryRepository')
 		private stockLibraryRepository: IStockLibraryRepository,
 	) {}
-	public async execute({ user_id, book_id }: IRequest) {
+	public async execute({ user_id, book_id }: IRequest): Promise<void> {
 		const booksRented = await this.rentBookRepository.findByUserId(user_id);
 
 		const stockIds = booksRented.map((item) => item.stock_library_id);
@@ -54,7 +52,5 @@ export default class ReturnBookService {
 			await this.rentBookRepository.delete(bookRented.id);
 			await transactionalEntityManager.save(stock);
 		});
-
-		return true;
 	}
 }
