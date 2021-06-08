@@ -25,5 +25,6 @@ usersRouter.post(
 );
 
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
+usersRouter.delete('/:user_id/books-rented', booksRentedController.remove);
 
 export default usersRouter;

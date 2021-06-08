@@ -25,4 +25,10 @@ export default class BooksRentedController {
 
 		return response.json(classToClass(booksRented));
 	}
+
+	public async remove(request: Request, response: Response) {
+		const { user_id } = request.params;
+		const { book_id } = request.body;
+		return response.json();
+	}
 }
