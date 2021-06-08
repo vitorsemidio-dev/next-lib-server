@@ -21,20 +21,11 @@ export default class ReturnBookService {
 		private stockLibraryRepository: IStockLibraryRepository,
 	) {}
 	public async execute({ user_id, book_id }: IRequest) {
-		// const user = await this.usersRepository.findById(user_id);
-
-		// if (!user) {
-		// 	throw new AppError('User does not found', 404);
-		// }
-
 		// Lista Livros Alugados Pelo Usuario
 		const booksRented = await this.rentBookRepository.findByUserId(user_id);
 
-		// const bookRented = booksRented.find((item) => item.book.id === book_id);
-
 		const stockIds = booksRented.map((item) => item.stock_library_id);
 
-		// Lista Stock
 		const stockWithBook = await this.stockLibraryRepository.findByIds(
 			stockIds,
 			['book'],
@@ -46,7 +37,17 @@ export default class ReturnBookService {
 			(item) => item.book_id === book_id,
 		);
 
-		// bookRented.status = 'Devolvido'
+		if (!stock) {
+			return;
+		}
+
+		const bookRented = booksRented.find(
+			(item) => item.stock_library_id === stock.id,
+		);
+
+		stock.quantity = stock.quantity + 1;
+
+		// bookRented.id
 
 		return true;
 	}
