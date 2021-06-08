@@ -11,8 +11,7 @@ import UpdateUserImageService from '../services/UpdateUserImageService';
 class UsersController {
 	public async create(request: Request, response: Response): Promise<Response> {
 		const { name, email, password } = request.body;
-		const { file } = request;
-		const avatar = file.filename;
+		const avatar = request.file ? request.file.filename : '';
 
 		const createUserService = container.resolve(CreateUserService);
 
