@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { getManager } from 'typeorm';
 
 import IRentBooksRepository from '@modules/libraries/repositories/interfaces/IRentBooksRepository';
 import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
@@ -21,7 +22,6 @@ export default class ReturnBookService {
 		private stockLibraryRepository: IStockLibraryRepository,
 	) {}
 	public async execute({ user_id, book_id }: IRequest) {
-		// Lista Livros Alugados Pelo Usuario
 		const booksRented = await this.rentBookRepository.findByUserId(user_id);
 
 		const stockIds = booksRented.map((item) => item.stock_library_id);
@@ -45,9 +45,15 @@ export default class ReturnBookService {
 			(item) => item.stock_library_id === stock.id,
 		);
 
-		stock.quantity = stock.quantity + 1;
+		if (!bookRented) {
+			return;
+		}
 
-		// bookRented.id
+		await getManager().transaction(async (transactionalEntityManager) => {
+			stock.quantity = stock.quantity + 1;
+			await this.rentBookRepository.delete(bookRented.id);
+			await transactionalEntityManager.save(stock);
+		});
 
 		return true;
 	}

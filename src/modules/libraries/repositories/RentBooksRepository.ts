@@ -30,7 +30,7 @@ export default class RentBooksRepository implements IRentBooksRepository {
 		return booksRented;
 	}
 
-	public async delete(id: string) {
-		this.ormRepository.delete(id);
+	public async delete(rent_book_id: string) {
+		await this.ormRepository.delete(rent_book_id);
 	}
 }
