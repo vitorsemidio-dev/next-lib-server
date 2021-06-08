@@ -38,7 +38,7 @@ export default class ReturnBookService {
 		);
 
 		if (!stock) {
-			return;
+			throw new AppError('Book rented does not found');
 		}
 
 		const bookRented = booksRented.find(
@@ -46,7 +46,7 @@ export default class ReturnBookService {
 		);
 
 		if (!bookRented) {
-			return;
+			throw new AppError('Book rented does not found');
 		}
 
 		await getManager().transaction(async (transactionalEntityManager) => {
