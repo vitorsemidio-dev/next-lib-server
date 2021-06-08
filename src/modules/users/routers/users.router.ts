@@ -10,13 +10,8 @@ const booksRentedController = new BooksRentedController();
 const usersRouter = Router();
 
 usersRouter.get('/', usersController.list);
-
 usersRouter.get('/:user_id', usersController.detail);
-
 usersRouter.post('/', imageUpload.single('image'), usersController.create);
-
-usersRouter.get('/:user_id/books-rented', booksRentedController.list);
-
 usersRouter.put('/:user_id', usersController.update);
 usersRouter.patch(
 	'/:user_id',
@@ -28,5 +23,7 @@ usersRouter.post(
 	'/check-availability/email',
 	usersController.checkEmailAvailability,
 );
+
+usersRouter.get('/:user_id/books-rented', booksRentedController.list);
 
 export default usersRouter;
