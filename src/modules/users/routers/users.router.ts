@@ -24,6 +24,7 @@ usersRouter.post(
 	usersController.checkEmailAvailability,
 );
 
+usersRouter.post('/:user_id/books-rented', booksRentedController.create);
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
 usersRouter.delete('/:user_id/books-rented', booksRentedController.remove);
 

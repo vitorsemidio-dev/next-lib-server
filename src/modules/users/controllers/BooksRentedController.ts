@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, response, Response } from 'express';
 import { classToClass } from 'class-transformer';
 import { container } from 'tsyringe';
 
@@ -9,6 +9,9 @@ import ListBooksRentedService from '../services/ListBooksRentedService';
 import ReturnBookService from '../services/ReturnBookService';
 
 export default class BooksRentedController {
+	public async create(request: Request, response: Response) {
+		return response.json();
+	}
 	public async list(request: Request, response: Response) {
 		const { user_id } = request.params;
 
