@@ -1,8 +1,10 @@
 import { Router } from 'express';
 
+import ensureAuthenticated from '@shared/middlewares/ensureAuthenticated';
+import imageUpload from '@shared/middlewares/imageUpload';
+
 import UsersController from '../controllers/UsersController';
 import BooksRentedController from '../controllers/BooksRentedController';
-import imageUpload from '@shared/middlewares/imageUpload';
 
 const usersController = new UsersController();
 const booksRentedController = new BooksRentedController();
