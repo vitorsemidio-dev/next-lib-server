@@ -4,13 +4,34 @@ import { container } from 'tsyringe';
 
 import RentBooksRepository from '@modules/libraries/repositories/RentBooksRepository';
 import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
+import UsersRepository from '@modules/users/repositories/UsersRepository';
+import BooksRepository from '@modules/libraries/repositories/BooksRepository';
+import UserRentBookService from '@modules/libraries/services/UserRentBookService';
 
 import ListBooksRentedService from '../services/ListBooksRentedService';
 import ReturnBookService from '../services/ReturnBookService';
 
 export default class BooksRentedController {
 	public async create(request: Request, response: Response) {
-		return response.json();
+		const { user_id } = request.params;
+		const { book_id } = request.body;
+
+		const usersRepository = container.resolve(UsersRepository);
+		const booksRepository = container.resolve(BooksRepository);
+		const rentBookRepository = container.resolve(RentBooksRepository);
+
+		const rentBookService = new UserRentBookService(
+			usersRepository,
+			booksRepository,
+			rentBookRepository,
+		);
+
+		const bookRented = await rentBookService.execute({
+			user_id,
+			book_id,
+		});
+
+		return response.json(bookRented);
 	}
 	public async list(request: Request, response: Response) {
 		const { user_id } = request.params;
