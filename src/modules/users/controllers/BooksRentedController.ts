@@ -1,4 +1,4 @@
-import { Request, response, Response } from 'express';
+import { Request, Response } from 'express';
 import { classToClass } from 'class-transformer';
 import { container } from 'tsyringe';
 
@@ -6,7 +6,7 @@ import RentBooksRepository from '@modules/libraries/repositories/RentBooksReposi
 import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
 import UsersRepository from '@modules/users/repositories/UsersRepository';
 import BooksRepository from '@modules/libraries/repositories/BooksRepository';
-import UserRentBookService from '@modules/libraries/services/UserRentBookService';
+import UserRentBookService from '@modules/users/services/UserRentBookService';
 
 import ListBooksRentedService from '../services/ListBooksRentedService';
 import ReturnBookService from '../services/ReturnBookService';
