@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import LibrariesController from '../controllers/LibrariesController';
-import RentBooksController from '../controllers/RentBooksController';
 import SessionsLibraryController from '../controllers/SessionsLibraryController';
 import StockLibraryController from '../controllers/StockLibraryController';
 import imageUpload from '@shared/middlewares/imageUpload';
@@ -9,7 +8,6 @@ import imageUpload from '@shared/middlewares/imageUpload';
 const librariesRouter = Router();
 
 const librariesController = new LibrariesController();
-const rentBooksController = new RentBooksController();
 const stockLibraryController = new StockLibraryController();
 const sessionsLibraryController = new SessionsLibraryController();
 
@@ -39,7 +37,6 @@ librariesRouter.get('/stock/:library_id', stockLibraryController.list);
 // Others
 librariesRouter.post('/register-book', stockLibraryController.registerBook);
 librariesRouter.post('/sessions', sessionsLibraryController.create);
-librariesRouter.post('/rent', rentBooksController.create);
 
 // Availability
 librariesRouter.post(
