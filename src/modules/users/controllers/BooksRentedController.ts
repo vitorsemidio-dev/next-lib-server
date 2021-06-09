@@ -63,11 +63,11 @@ export default class BooksRentedController {
 			stockLibraryRepository,
 		);
 
-		const result = await returnBookService.execute({
+		await returnBookService.execute({
 			book_id,
 			user_id,
 		});
 
-		return response.json(result);
+		return response.status(204).json();
 	}
 }
