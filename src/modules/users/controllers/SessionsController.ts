@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -15,7 +16,7 @@ export default class SessionsController {
 		});
 
 		return response.json({
-			user,
+			user: classToClass(user),
 			token,
 		});
 	}
