@@ -8,4 +8,5 @@ interface IRentBookDTO {
 export default interface IRentBooksRepository {
 	createInstance(data: IRentBookDTO): RentBook;
 	findByUserId(user_id: string): Promise<RentBook[]>;
+	delete(rent_book_id: string): Promise<void>;
 }

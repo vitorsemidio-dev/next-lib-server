@@ -1,8 +1,10 @@
 import { Router } from 'express';
 
+import ensureAuthenticated from '@shared/middlewares/ensureAuthenticated';
+import imageUpload from '@shared/middlewares/imageUpload';
+
 import UsersController from '../controllers/UsersController';
 import BooksRentedController from '../controllers/BooksRentedController';
-import imageUpload from '@shared/middlewares/imageUpload';
 
 const usersController = new UsersController();
 const booksRentedController = new BooksRentedController();
@@ -24,6 +26,8 @@ usersRouter.post(
 	usersController.checkEmailAvailability,
 );
 
+usersRouter.post('/:user_id/books-rented', booksRentedController.create);
 usersRouter.get('/:user_id/books-rented', booksRentedController.list);
+usersRouter.delete('/:user_id/books-rented', booksRentedController.remove);
 
 export default usersRouter;
