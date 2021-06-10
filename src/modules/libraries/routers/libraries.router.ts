@@ -1,8 +1,9 @@
 import { Router } from 'express';
 
-import LibrariesController from '../controllers/LibrariesController';
-import SessionsLibraryController from '../controllers/SessionsLibraryController';
-import StockLibraryController from '../controllers/StockLibraryController';
+import LibrariesController from '@modules/libraries/controllers/LibrariesController';
+import SessionsLibraryController from '@modules/libraries/controllers/SessionsLibraryController';
+import StockLibraryController from '@modules/libraries/controllers/StockLibraryController';
+import ensureLibraryAuthenticated from '@modules/libraries/middlewares/ensureLibraryAuthenticated';
 import imageUpload from '@shared/middlewares/imageUpload';
 
 const librariesRouter = Router();
@@ -21,21 +22,35 @@ librariesRouter.get('/', librariesController.list);
 librariesRouter.get('/:slug', librariesController.show);
 librariesRouter.put(
 	'/:library_id',
+	ensureLibraryAuthenticated,
 	imageUpload.single('image'),
 	librariesController.update,
 );
 librariesRouter.patch(
 	'/:library_id',
+	ensureLibraryAuthenticated,
 	imageUpload.single('image'),
 	librariesController.updateImage,
 );
 
 // Stock Library
-librariesRouter.post('/stock', stockLibraryController.create);
-librariesRouter.get('/stock/:library_id', stockLibraryController.list);
+librariesRouter.post(
+	'/stock',
+	ensureLibraryAuthenticated,
+	stockLibraryController.create,
+);
+librariesRouter.get(
+	'/stock/:library_id',
+	ensureLibraryAuthenticated,
+	stockLibraryController.list,
+);
 
 // Others
-librariesRouter.post('/register-book', stockLibraryController.registerBook);
+librariesRouter.post(
+	'/register-book',
+	ensureLibraryAuthenticated,
+	stockLibraryController.registerBook,
+);
 librariesRouter.post('/sessions', sessionsLibraryController.create);
 
 // Availability

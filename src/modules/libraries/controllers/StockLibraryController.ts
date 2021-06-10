@@ -59,7 +59,8 @@ export default class StockLibraryController {
 	}
 
 	public async registerBook(request: Request, response: Response) {
-		const { library_id, book, quantity } = request.body;
+		const { book, quantity } = request.body;
+		const library_id = request.library.id;
 
 		const booksRepository = container.resolve(BooksRepository);
 		const librariesRepository = container.resolve(LibrariesRepository);
