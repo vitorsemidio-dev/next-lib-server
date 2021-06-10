@@ -37,7 +37,7 @@ export default class LibraryAuthenticateService {
 		if (!isPasswordValid)
 			throw new AppError('Email and password does not match', 401);
 
-		const token = sign({}, env.jwtSecret, {
+		const token = sign({}, env.jwtSecretLibrary, {
 			expiresIn: env.jwtExpiresIn,
 			subject: library.id,
 		});

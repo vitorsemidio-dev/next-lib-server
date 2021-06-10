@@ -2,21 +2,19 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import BooksRepository from '../repositories/BooksRepository';
-import CreateBookService from '../services/CreateBookService';
-import UpdateBookService from '../services/UpdateBookService';
-import UpdateImageBookService from '../services/UpdateImageBookService';
-import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
+import BooksRepository from '@modules/libraries/repositories/BooksRepository';
+import CreateBookService from '@modules/libraries/services/CreateBookService';
+import UpdateBookService from '@modules/libraries/services/UpdateBookService';
+import UpdateImageBookService from '@modules/libraries/services/UpdateImageBookService';
+import CheckNameAvailabilityService from '@modules/libraries/services/CheckNameAvailabilityService';
 
 export default class BooksController {
-	public async list(requet: Request, response: Response): Promise<Response> {
+	public async list(requet: Request, response: Response) {
 		const booksRepository = container.resolve(BooksRepository);
 
 		const books = await booksRepository.find();
 
-		const booksViewModel = books.map((item) => ({
-			...classToClass(item),
-		}));
+		const booksViewModel = classToClass(books);
 
 		return response.json(booksViewModel);
 	}
@@ -35,9 +33,9 @@ export default class BooksController {
 		return response.json(bookViewModel);
 	}
 
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { name, author, pages } = request.body;
-		const picture = request.file.filename || '';
+		const picture = request.file ? request.file.filename : '';
 
 		const booksRepository = container.resolve(BooksRepository);
 		const createBookService = new CreateBookService(booksRepository);
@@ -49,7 +47,9 @@ export default class BooksController {
 			picture,
 		});
 
-		return response.json(book);
+		const bookViewModel = classToClass(book);
+
+		return response.json(bookViewModel);
 	}
 
 	public async update(request: Request, response: Response) {
@@ -67,7 +67,9 @@ export default class BooksController {
 			quantity,
 		});
 
-		return response.json(classToClass(bookUpdated));
+		const bookUpdatedViewModel = classToClass(bookUpdated);
+
+		return response.json(bookUpdatedViewModel);
 	}
 
 	public async remove(request: Request, response: Response) {
@@ -77,10 +79,10 @@ export default class BooksController {
 
 		await booksRepository.remove(book_id);
 
-		return response.status(204).json(book_id);
+		return response.status(204).json();
 	}
 
-	public async updateAvatar(request: Request, response: Response) {
+	public async updateImage(request: Request, response: Response) {
 		const { filename } = request.file;
 		const { book_id } = request.params;
 
@@ -93,9 +95,9 @@ export default class BooksController {
 			book_id,
 		});
 
-		return response.json({
-			bookUpdated,
-		});
+		const bookUpdatedViewModel = classToClass(bookUpdated);
+
+		return response.json(bookUpdatedViewModel);
 	}
 
 	public async checkNameAvailability(request: Request, response: Response) {

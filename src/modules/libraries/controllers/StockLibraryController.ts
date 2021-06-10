@@ -2,35 +2,37 @@ import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import BooksRepository from '../repositories/BooksRepository';
-import LibrariesRepository from '../repositories/LibrariesRepository';
-import StockLibraryRepository from '../repositories/StockLibraryRepository';
-
-import AddBookToStockLibraryService from '../services/AddBookToStockLibraryService';
-import CreateBookAndAddToStockLibraryService from '../services/CreateBookAndAddToStockLibraryService';
-import ListStockLibraryService from '../services/ListStockLibraryService';
+import BooksRepository from '@modules/libraries/repositories/BooksRepository';
+import LibrariesRepository from '@modules/libraries/repositories/LibrariesRepository';
+import StockLibraryRepository from '@modules/libraries/repositories/StockLibraryRepository';
+import CreateBookAndAddToStockLibraryService from '@modules/libraries/services/CreateBookAndAddToStockLibraryService';
+import ListStockLibraryService from '@modules/libraries/services/ListStockLibraryService';
 
 export default class StockLibraryController {
 	public async create(request: Request, response: Response) {
-		const { library_id, book_id, quantity } = request.body;
+		const { book, quantity } = request.body;
+		const library_id = request.library.id;
 
 		const booksRepository = container.resolve(BooksRepository);
 		const librariesRepository = container.resolve(LibrariesRepository);
 		const stockLibraryRepository = container.resolve(StockLibraryRepository);
 
-		const addBookToStockLibraryService = new AddBookToStockLibraryService(
-			booksRepository,
-			librariesRepository,
-			stockLibraryRepository,
-		);
+		const createBookAndAddToStockLibraryService =
+			new CreateBookAndAddToStockLibraryService(
+				booksRepository,
+				librariesRepository,
+				stockLibraryRepository,
+			);
 
-		const stockItem = await addBookToStockLibraryService.execute({
+		const registerItem = await createBookAndAddToStockLibraryService.execute({
 			library_id,
-			book_id,
+			book,
 			quantity,
 		});
 
-		return response.json(stockItem);
+		const registerViewModel = classToClass(registerItem);
+
+		return response.json(registerViewModel);
 	}
 
 	public async list(request: Request, response: Response) {
@@ -56,28 +58,5 @@ export default class StockLibraryController {
 		});
 
 		return response.json(stockViewModel);
-	}
-
-	public async registerBook(request: Request, response: Response) {
-		const { library_id, book, quantity } = request.body;
-
-		const booksRepository = container.resolve(BooksRepository);
-		const librariesRepository = container.resolve(LibrariesRepository);
-		const stockLibraryRepository = container.resolve(StockLibraryRepository);
-
-		const createBookAndAddToStockLibraryService =
-			new CreateBookAndAddToStockLibraryService(
-				booksRepository,
-				librariesRepository,
-				stockLibraryRepository,
-			);
-
-		const registerItem = await createBookAndAddToStockLibraryService.execute({
-			library_id,
-			book,
-			quantity,
-		});
-
-		return response.json(registerItem);
 	}
 }

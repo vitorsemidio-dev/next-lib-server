@@ -2,16 +2,16 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
+import LibrariesRepository from '@modules/libraries/repositories/LibrariesRepository';
+import CreateLibraryService from '@modules/libraries/services/CreateLibraryService';
+import CheckEmailAvailabilityService from '@modules/libraries/services/CheckEmailAvailabilityService';
+import CheckNameAvailabilityService from '@modules/libraries/services/CheckNameAvailabilityService';
+import UpdateLibraryService from '@modules/libraries/services/UpdateLibraryService';
+import UpdateImageLibraryService from '@modules/libraries/services/UpdateImageLibraryService';
 import AppError from '@shared/errors/AppError';
-import LibrariesRepository from '../repositories/LibrariesRepository';
-import CreateLibraryService from '../services/CreateLibraryService';
-import CheckEmailAvailabilityService from '../services/CheckEmailAvailabilityService';
-import CheckNameAvailabilityService from '../services/CheckNameAvailabilityService';
-import UpdateLibraryService from '../services/UpdateLibraryService';
-import UpdateImageLibraryService from '../services/UpdateImageLibraryService';
 
 export default class LibrariesController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { name, email, password } = request.body;
 		const avatar = request.file ? request.file.filename : '';
 
@@ -25,17 +25,17 @@ export default class LibrariesController {
 			avatar,
 		});
 
-		return response.json(library);
+		const libraryViewModel = classToClass(library);
+
+		return response.json(libraryViewModel);
 	}
 
-	public async list(request: Request, response: Response): Promise<Response> {
+	public async list(request: Request, response: Response) {
 		const librariesRepository = container.resolve(LibrariesRepository);
 
 		const libraries = await librariesRepository.find();
 
-		const librariesViewModel = libraries.map((library) => ({
-			...classToClass(library),
-		}));
+		const librariesViewModel = classToClass(libraries);
 
 		return response.json(librariesViewModel);
 	}
@@ -50,9 +50,7 @@ export default class LibrariesController {
 			throw new AppError(`Biblioteca com slug "${slug}" não encontrada`, 404);
 		}
 
-		const libraryViewModel = {
-			...classToClass(library),
-		};
+		const libraryViewModel = classToClass(library);
 
 		return response.json(libraryViewModel);
 	}
@@ -73,7 +71,9 @@ export default class LibrariesController {
 			name,
 		});
 
-		return response.json(classToClass(libraryUpdated));
+		const libraryUpdatedViewModel = classToClass(libraryUpdated);
+
+		return response.json(libraryUpdatedViewModel);
 	}
 
 	public async updateImage(request: Request, response: Response) {
@@ -90,7 +90,9 @@ export default class LibrariesController {
 			filename: avatar,
 		});
 
-		return response.json(classToClass(libraryUpdated));
+		const libraryUpdatedViewModel = classToClass(libraryUpdated);
+
+		return response.json(libraryUpdatedViewModel);
 	}
 
 	public async checkNameAvailability(request: Request, response: Response) {

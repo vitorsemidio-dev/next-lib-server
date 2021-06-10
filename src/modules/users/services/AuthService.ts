@@ -38,7 +38,7 @@ export default class AuthService {
 		if (!isPasswordValid)
 			throw new AppError('Email and password does not match', 401);
 
-		const token = sign({}, env.jwtSecret, {
+		const token = sign({}, env.jwtSecretUser, {
 			expiresIn: env.jwtExpiresIn,
 			subject: user.id,
 		});

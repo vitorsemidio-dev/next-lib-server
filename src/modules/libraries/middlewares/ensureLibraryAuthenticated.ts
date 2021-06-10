@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import AppError from '../errors/AppError';
-import env from '../environment/env';
+import AppError from '@shared/errors/AppError';
+import env from '@shared/environment/env';
 
 interface TokenPayload {
 	iat: number;
@@ -10,7 +10,7 @@ interface TokenPayload {
 	sub: string;
 }
 
-export default function ensureAuthenticated(
+export default function ensureLibraryAuthenticated(
 	request: Request,
 	response: Response,
 	next: NextFunction,
@@ -22,9 +22,9 @@ export default function ensureAuthenticated(
 	const [, token] = authHeader.split(' ');
 
 	try {
-		const { sub } = verify(token, env.jwtSecret) as TokenPayload;
+		const { sub } = verify(token, env.jwtSecretLibrary) as TokenPayload;
 
-		request.user = {
+		request.library = {
 			id: sub,
 		};
 	} catch (error) {
