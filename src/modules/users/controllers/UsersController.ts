@@ -22,7 +22,9 @@ class UsersController {
 			avatar,
 		});
 
-		return response.json(user);
+		const userViewModel = classToClass(user);
+
+		return response.json(userViewModel);
 	}
 
 	public async list(request: Request, response: Response): Promise<Response> {
@@ -30,7 +32,9 @@ class UsersController {
 
 		const users = await usersRepository.find();
 
-		return response.json(users);
+		const usersViewModel = classToClass(users);
+
+		return response.json(usersViewModel);
 	}
 
 	public async detail(request: Request, response: Response): Promise<Response> {
@@ -39,7 +43,9 @@ class UsersController {
 
 		const user = await usersRepository.userDetail(user_id);
 
-		return response.json(user);
+		const userViewModel = classToClass(user);
+
+		return response.json(userViewModel);
 	}
 
 	public async update(request: Request, response: Response) {
@@ -56,7 +62,9 @@ class UsersController {
 			password,
 		});
 
-		return response.json(classToClass(userUpdated));
+		const userUpdatedViewModel = classToClass(userUpdated);
+
+		return response.json(userUpdatedViewModel);
 	}
 
 	public async updateImage(request: Request, response: Response) {
@@ -71,7 +79,9 @@ class UsersController {
 			user_id,
 		});
 
-		return response.json(classToClass(userUpdated));
+		const userUpdatedViewModel = classToClass(userUpdated);
+
+		return response.json(userUpdatedViewModel);
 	}
 
 	public async checkEmailAvailability(request: Request, response: Response) {
