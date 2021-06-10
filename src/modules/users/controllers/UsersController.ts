@@ -37,7 +37,7 @@ class UsersController {
 		return response.json(usersViewModel);
 	}
 
-	public async detail(request: Request, response: Response): Promise<Response> {
+	public async show(request: Request, response: Response): Promise<Response> {
 		const { user_id } = request.body;
 		const usersRepository = new UsersRepository();
 

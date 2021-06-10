@@ -33,6 +33,7 @@ export default class BooksRentedController {
 
 		return response.json(bookRented);
 	}
+
 	public async list(request: Request, response: Response) {
 		const { user_id } = request.params;
 

@@ -82,7 +82,7 @@ export default class BooksController {
 		return response.status(204).json();
 	}
 
-	public async updateAvatar(request: Request, response: Response) {
+	public async updateImage(request: Request, response: Response) {
 		const { filename } = request.file;
 		const { book_id } = request.params;
 

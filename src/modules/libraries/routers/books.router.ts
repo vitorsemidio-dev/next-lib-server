@@ -26,7 +26,7 @@ booksRouter.patch(
 	'/:book_id',
 	ensureLibraryAuthenticated,
 	imageUpload.single('image'),
-	booksController.updateAvatar,
+	booksController.updateImage,
 );
 booksRouter.delete(
 	'/:book_id',

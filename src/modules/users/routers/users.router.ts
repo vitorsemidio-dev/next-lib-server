@@ -15,7 +15,7 @@ usersRouter.use(sessionsRouter);
 
 usersRouter.get('/', usersController.list);
 usersRouter.post('/', imageUpload.single('image'), usersController.create);
-usersRouter.get('/:user_id', ensureUserAuthenticated, usersController.detail);
+usersRouter.get('/:user_id', ensureUserAuthenticated, usersController.show);
 usersRouter.put('/:user_id', ensureUserAuthenticated, usersController.update);
 usersRouter.patch(
 	'/:user_id',
