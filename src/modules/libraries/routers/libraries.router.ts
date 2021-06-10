@@ -1,16 +1,17 @@
 import { Router } from 'express';
 
 import LibrariesController from '@modules/libraries/controllers/LibrariesController';
-import SessionsLibraryController from '@modules/libraries/controllers/SessionsLibraryController';
 import StockLibraryController from '@modules/libraries/controllers/StockLibraryController';
 import ensureLibraryAuthenticated from '@modules/libraries/middlewares/ensureLibraryAuthenticated';
+import sessionsRouter from '@modules/libraries/routers/sessions.router';
 import imageUpload from '@shared/middlewares/imageUpload';
 
 const librariesRouter = Router();
 
 const librariesController = new LibrariesController();
 const stockLibraryController = new StockLibraryController();
-const sessionsLibraryController = new SessionsLibraryController();
+
+librariesRouter.use(sessionsRouter);
 
 // Library
 librariesRouter.post(
@@ -40,9 +41,6 @@ librariesRouter.post(
 	stockLibraryController.create,
 );
 librariesRouter.get('/stock/:library_id', stockLibraryController.list);
-
-// Others
-librariesRouter.post('/sessions', sessionsLibraryController.create);
 
 // Availability
 librariesRouter.post(

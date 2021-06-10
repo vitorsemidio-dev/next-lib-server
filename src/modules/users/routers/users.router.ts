@@ -1,15 +1,17 @@
 import { Router } from 'express';
 
-import ensureUserAuthenticated from '@modules/users/middlewares/ensureUserAuthenticated';
 import imageUpload from '@shared/middlewares/imageUpload';
-
-import UsersController from '../controllers/UsersController';
-import BooksRentedController from '../controllers/BooksRentedController';
+import ensureUserAuthenticated from '@modules/users/middlewares/ensureUserAuthenticated';
+import UsersController from '@modules/users/controllers/UsersController';
+import BooksRentedController from '@modules/users/controllers/BooksRentedController';
+import sessionsRouter from '@modules/users/routers/sessions.router';
 
 const usersController = new UsersController();
 const booksRentedController = new BooksRentedController();
 
 const usersRouter = Router();
+
+usersRouter.use(sessionsRouter);
 
 usersRouter.get('/', usersController.list);
 usersRouter.post('/', imageUpload.single('image'), usersController.create);
