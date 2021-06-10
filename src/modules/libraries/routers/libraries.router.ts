@@ -39,18 +39,9 @@ librariesRouter.post(
 	ensureLibraryAuthenticated,
 	stockLibraryController.create,
 );
-librariesRouter.get(
-	'/stock/:library_id',
-	ensureLibraryAuthenticated,
-	stockLibraryController.list,
-);
+librariesRouter.get('/stock/:library_id', stockLibraryController.list);
 
 // Others
-librariesRouter.post(
-	'/register-book',
-	ensureLibraryAuthenticated,
-	stockLibraryController.registerBook,
-);
 librariesRouter.post('/sessions', sessionsLibraryController.create);
 
 // Availability

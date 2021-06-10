@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import IBooksRepository from '@modules/libraries/repositories/interfaces/IBooksRepository';
 import ILibrariesRepository from '@modules/libraries/repositories/interfaces/ILibrariesRepository';
 import IStockLibraryRepository from '@modules/libraries/repositories/interfaces/IStockLibraryRepository';
+import StockLibrary from '@shared/database/entities/StockLibrary';
 
 import AddBookToStockLibraryService from './AddBookToStockLibraryService';
 import CreateBookService from './CreateBookService';
@@ -29,7 +30,11 @@ export default class CreateBookAndAddToStockLibraryService {
 		private stockRepository: IStockLibraryRepository,
 	) {}
 
-	public async execute({ library_id, book, quantity }: IRequest): Promise<any> {
+	public async execute({
+		library_id,
+		book,
+		quantity,
+	}: IRequest): Promise<StockLibrary> {
 		const createBookService = new CreateBookService(this.booksRepository);
 		const addBookToStockLibraryService = new AddBookToStockLibraryService(
 			this.booksRepository,
