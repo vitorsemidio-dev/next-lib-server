@@ -22,7 +22,7 @@ export default function ensureLibraryAuthenticated(
 	const [, token] = authHeader.split(' ');
 
 	try {
-		const { sub } = verify(token, env.jwtSecret) as TokenPayload;
+		const { sub } = verify(token, env.jwtSecretLibrary) as TokenPayload;
 
 		request.library = {
 			id: sub,

@@ -14,6 +14,7 @@ module.exports = {
 		process.env.TYPEORM_MIGRATIONS || './src/database/migrations/*.ts',
 	typeormMigrationsDir:
 		process.env.TYPEORM_MIGRATIONS_DIR || './src/database/migrations',
-	jwtSecret: process.env.JWT_SECRET || 'jwt',
+	jwtSecretUser: process.env.JWT_SECRET_USER || 'jwt',
+	jwtSecretLibrary: process.env.JWT_SECRET_LIBRARY || 'jwt',
 	jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1d',
 };
