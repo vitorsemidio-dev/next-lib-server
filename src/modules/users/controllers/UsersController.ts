@@ -9,7 +9,7 @@ import UpdateUserService from '../services/UpdateUserService';
 import UpdateUserImageService from '../services/UpdateUserImageService';
 
 class UsersController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { name, email, password } = request.body;
 		const avatar = request.file ? request.file.filename : '';
 
@@ -27,7 +27,7 @@ class UsersController {
 		return response.json(userViewModel);
 	}
 
-	public async list(request: Request, response: Response): Promise<Response> {
+	public async list(request: Request, response: Response) {
 		const usersRepository = new UsersRepository();
 
 		const users = await usersRepository.find();
@@ -37,7 +37,7 @@ class UsersController {
 		return response.json(usersViewModel);
 	}
 
-	public async show(request: Request, response: Response): Promise<Response> {
+	public async show(request: Request, response: Response) {
 		const { user_id } = request.body;
 		const usersRepository = new UsersRepository();
 

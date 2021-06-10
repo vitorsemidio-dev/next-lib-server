@@ -11,7 +11,7 @@ import UpdateImageLibraryService from '@modules/libraries/services/UpdateImageLi
 import AppError from '@shared/errors/AppError';
 
 export default class LibrariesController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { name, email, password } = request.body;
 		const avatar = request.file ? request.file.filename : '';
 
@@ -30,7 +30,7 @@ export default class LibrariesController {
 		return response.json(libraryViewModel);
 	}
 
-	public async list(request: Request, response: Response): Promise<Response> {
+	public async list(request: Request, response: Response) {
 		const librariesRepository = container.resolve(LibrariesRepository);
 
 		const libraries = await librariesRepository.find();

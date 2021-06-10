@@ -6,7 +6,7 @@ import LibraryAuthenticateService from '@modules/libraries/services/LibraryAuthe
 import LibrariesRepository from '@modules/libraries/repositories/LibrariesRepository';
 
 export default class SessionsLibraryController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { email, password } = request.body;
 
 		const librariesRepository = container.resolve(LibrariesRepository);

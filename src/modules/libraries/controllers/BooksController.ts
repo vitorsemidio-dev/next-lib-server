@@ -9,7 +9,7 @@ import UpdateImageBookService from '@modules/libraries/services/UpdateImageBookS
 import CheckNameAvailabilityService from '@modules/libraries/services/CheckNameAvailabilityService';
 
 export default class BooksController {
-	public async list(requet: Request, response: Response): Promise<Response> {
+	public async list(requet: Request, response: Response) {
 		const booksRepository = container.resolve(BooksRepository);
 
 		const books = await booksRepository.find();
@@ -33,7 +33,7 @@ export default class BooksController {
 		return response.json(bookViewModel);
 	}
 
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async create(request: Request, response: Response) {
 		const { name, author, pages } = request.body;
 		const picture = request.file ? request.file.filename : '';
 
