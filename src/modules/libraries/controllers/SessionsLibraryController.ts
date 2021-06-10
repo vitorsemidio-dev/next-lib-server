@@ -2,8 +2,8 @@ import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import LibraryAuthenticateService from '../services/LibraryAuthenticateService';
-import LibrariesRepository from '../repositories/LibrariesRepository';
+import LibraryAuthenticateService from '@modules/libraries/services/LibraryAuthenticateService';
+import LibrariesRepository from '@modules/libraries/repositories/LibrariesRepository';
 
 export default class SessionsLibraryController {
 	public async create(request: Request, response: Response): Promise<Response> {
